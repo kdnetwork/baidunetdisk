@@ -12,12 +12,12 @@
 
 ### 安装
 自动安装未完成，现在请您自行修改config.php的内容
->\<?php
->$token='';//用于对接的token，必填，请到 https://pan.kdwnil.ml/?m=token 获取
->$url='';//您的网站的域名
->$siteurl='https://'.$url;//您的网站的域名，用于短链接，必填(若您的网站不支持https请改为http)
->//$admin_id='';管理员的百度id，暂时可不填
->$version='v5.0.13';
+>\<?php  <br/>
+>$token='';//用于对接的token，必填，请到 https://pan.kdwnil.ml/?m=token 获取  <br/>
+>$url='';//您的网站的域名  <br/>
+>$siteurl='https://'.$url;//您的网站的域名，用于短链接，必填(若您的网站不支持https请改为http)  <br/>
+>//$admin_id='';管理员的百度id，暂时可不填  <br/>
+>$version='v5.0.13';  <br/>
 
 ### 检查更新
 
