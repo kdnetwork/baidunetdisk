@@ -26,6 +26,16 @@
 ### 免费声明
 本程序开源且不会收费，如果您是收费获得本程序那么您可能被骗了
 
+### 开发者列表 
+#### 主要 
+[KDWNIL](https://kdwnil.ml)
+#### 协助
+[小黑屋社区](http://www.xheiwu.com)
+#### 热心贡献者 以下几位反馈/解决了程序的不足之处，特此感谢
+[四叶重工](https://n0099.cf)
+[简云](https://tbsign.cn)
+[MMDA](http://mmda.ga)
+
 License
 ----
 
