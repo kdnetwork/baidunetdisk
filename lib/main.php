@@ -41,6 +41,6 @@ if(strlen($_COOKIE['bduss']) > 0){
                                 echo '<title>跳转中</title><meta http-equiv="Refresh" content="0;url=./">跳转中...';}
                             else{echo '<title>跳转中</title><meta http-equiv="Refresh" content="1;url=./">bduss无效...';}
                         }else{
-                                echo '<div class="alert alert-warning alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 您还没有登录,要体验更多功能请先<strong><a href="./?m=bduss&fr='.urlencode('http://'.$_SERVER['HTTP_HOST']).'" class="alert-link">登录</a></strong> </div>';
+                                echo '<div class="alert alert-warning alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 您还没有登录,要体验更多功能请先<strong><a href="./?m=bduss&fr='.urlencode($siteurl).'" class="alert-link">登录</a></strong> </div>';
                                 include ('./lib/bus.php');
                         }
