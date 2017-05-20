@@ -112,6 +112,6 @@ elseif (strlen($_GET['vcode'])>0){
 		echo "<div class=\"col-md-12\" role=\"main\"><div class=\"panel panel-default\"><div class=\"panel-body\">下载地址(如果空白请检查验证码是否输入错误或连接是否失效并回去重新获取):<a href=\"{$json[1][0]}\"\"target=\"_blank\">{$json[1][0]}</a><br>短链接:<a href=\"{$shref}\">{$shref}</a></div></div></div><br>";
 	}
 }else {
-	echo '<div class="col-md-12" role="main"><center><form action="./?m=bus" method="post"><div class="input-group"><input type="url" placeholder="请输入分享链接..." class="form-control" name="url" aria-describedby="sizing-addon1"><!--<input type="text" placeholder="请输入分享密码(没有请不填)..." class="form-control" name="spwd" aria-describedby="sizing-addon1">--><button class="btn btn-default" type="submit">提交</button></div></div></form></center></div>';
+	echo '<center><form action="./?m=bus" method="post"><div class="input-group"><input type="url" placeholder="请输入分享链接..." class="form-control" name="url" aria-describedby="sizing-addon1"><span class="input-group-btn"><button class="btn btn-default" type="submit">提交</button></span></div></div></form></center>';
 }
 echo '</center>';

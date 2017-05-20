@@ -39,7 +39,7 @@ if (strlen($_POST["dl_url"])>0){
 	//if($_GET["error"] == false){echo '获取失败，请检查您的链接是否无法使用或者属于违法违规链接';}else{echo '';}
 	echo "<div class=\"col-md-12\" role=\"main\"><div class=\"table-responsive\"><table class=\"table table-hover table-striped table-condensed table-responsive mdl-data-table mdl-js-data-table mdl-shadow--2dp\" border=\"1\"><th class=\"mdl-data-table__cell--non-numeric\">任务</th><th class=\"mdl-data-table__cell--non-numeric\">文件名称</th><th class=\"mdl-data-table__cell--non-numeric\">离线路径</th>";
 	$x=0;
-	do {
+	while ($x<=$b["total"]-1){
 		echo "<tr><td class=\"mdl-data-table__cell--non-numeric\">任务".($x+1)."</td><td class=\"mdl-data-table__cell--non-numeric\">{$b["task_info "][$x]["task_name "]}</td><td class=\"mdl-data-table__cell--non-numeric\">";
 		if ($b["task_info"][$x]["od_type"]==2){
 			echo "<a href=\"./?m=list&path={$b["task_info "][$x]["save_path "]}\">{$b["task_info "][$x]["save_path "]}</a></td></tr>";
@@ -48,7 +48,6 @@ if (strlen($_POST["dl_url"])>0){
 		}
 		$x++;
 	}
-	while ($x<=$b["total"]-1);
 	echo '</table></div><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body">本次离线下载将保存到"我的资源"文件夹(链接支持http/https/ftp/电驴/磁力链协议)</div></div><center><form action="./?m=dl" method="post"><div class="input-group"><input type="url" placeholder="请输入链接地址..." class="form-control" name="dl_url" aria-describedby="sizing-addon1"><span class="input-group-btn"><button class="btn btn-default" type="submit">提交</button></span></div></div></form></center>';
 }
 if (strlen($bduss)>0){

@@ -6,3 +6,4 @@ $siteurl='https://'.$url;//若不支持https请改回http
 $admin_id='';//管理员的百度id，好像没什么用
 $version='v5.0.17';
 $seo='百度网盘直链工具';//seo信息，自行修改，分隔用半角逗号","
+$language='zh_cn';
