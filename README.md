@@ -12,13 +12,14 @@
 
 ### 安装
 自动安装未完成，现在请您自行修改config.php的内容
->\<?php  <br/>
->$token='';//用于对接的token，必填，请到 https://pan.kdwnil.ml/?m=token 获取  <br/>
->$url='';//您的网站的域名  <br/>
->$siteurl='https://'.$url;//若您的网站不支持https请改为http<br/>
->$admin_id='';管理员的百度id，暂时可不填  <br/>
->$seo='百度网盘直链工具';//seo信息，自行修改，分隔用半角逗号","<br>
->$version='v5.0.17';  <br/>
+>\<?php  
+>$token='';//用于对接的token，必填，请到 https://pan.kdwnil.ml/?m=token 获取  
+>$url='';//您的网站的域名  
+>$siteurl='https://'.$url;//若您的网站不支持https请改为http
+>$admin_id='';管理员的百度id，暂时可不填  
+>$seo='百度网盘直链工具';//seo信息，自行修改，分隔用半角逗号","
+>$version='v5.0.18';  
+>$language='zh_cn'//语言选项，暂时只支持简体中文
 
 ### 检查更新
 
