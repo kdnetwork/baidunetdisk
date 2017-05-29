@@ -59,7 +59,7 @@ if (strlen($_POST['url'])>0){
 	//echo $content;
 	preg_match_all('/window.yunData = (.+?);/iu',$content,$kd);
 	$json=json_decode($kd[1][0],1);
-	$zh=curl_init("http://pan.baidu.com/share/download?bdstoken=null&web=5&app_id=250528&logid=MTQ4NzA2NzE5MDU0NzAuMDg2MzE0ODYwNzMxMzYzMw==&channel=chunlei&clienttype=5&uk={$json["uk "]}&shareid={$json["shareid "]}&fid_list=%5B{$json["file_list "][0]["fs_id "]}%5D&sign={$json["downloadsign "]}&timestamp={$json["timestamp "]}");
+	$zh=curl_init("http://pan.baidu.com/share/download?bdstoken=null&web=5&app_id=250528&logid=MTQ4NzA2NzE5MDU0NzAuMDg2MzE0ODYwNzMxMzYzMw==&channel=chunlei&clienttype=5&uk={$json["uk"]}&shareid={$json["shareid"]}&fid_list=%5B{$json["file_list"][0]["fs_id"]}%5D&sign={$json["downloadsign"]}&timestamp={$json["timestamp"]}");
 	curl_setopt($zh,CURLOPT_USERAGENT ,'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba');
 	curl_setopt($zh,CURLOPT_RETURNTRANSFER ,1);
 	$furljson=curl_exec($zh);
@@ -109,7 +109,7 @@ elseif (strlen($_GET['vcode'])>0){
 		echo '<video src="'.$json[1][0].'" controls="controls"></video>';
 	}else {
 		$shref=file_get_contents($siteurl.'/s.php?type=1&url='.base64_encode($json[1][0]));
-		echo "<div class=\"col-md-12\" role=\"main\"><div class=\"panel panel-default\"><div class=\"panel-body\">下载地址(如果空白请检查验证码是否输入错误或连接是否失效并回去重新获取):<a href=\"{$json[1][0]}\"\"target=\"_blank\">{$json[1][0]}</a><br>短链接:<a href=\"{$shref}\">{$shref}</a></div></div></div><br>";
+		echo "<div class=\"col-md-12\" role=\"main\"><div class=\"panel panel-default\"><div class=\"panel-body\">下载地址(如果空白请检查验证码是否输入错误或连接是否失效并回去重新获取):<a href=\"{$json[1][0]}\"\"target=\"_blank\">{$json[1][0]}</a><br><img src=\"{$shref}\"></div></div></div><br>";
 	}
 }else {
 	echo '<center><form action="./?m=bus" method="post"><div class="input-group"><input type="url" placeholder="请输入分享链接..." class="form-control" name="url" aria-describedby="sizing-addon1"><span class="input-group-btn"><button class="btn btn-default" type="submit">提交</button></span></div></div></form></center>';

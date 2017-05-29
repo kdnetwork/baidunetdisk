@@ -2,6 +2,19 @@
 <?php
 require './config.php';
 header("Content-type: text/html; charset=utf-8");
+function  head (){
+	$bduss=urlencode($_COOKIE['bduss']);
+	$baiduid=$_COOKIE['baiduid'];
+	$ch=curl_init('https://www.baidu.com/p/'.$baiduid);
+	curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
+	curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
+	curl_setopt($ch,CURLOPT_REFERER ,'www.baidu.com');
+	$content=curl_exec($ch);
+	curl_close($ch);
+	preg_match_all('/portrait : \'(.+?)\'/',$content,$hhhh);
+	return('https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/'.$hhhh[1][0].'.jpg');
+}
 if ($_GET["posturl"]=='suv'){
 	$posturl='./?m=suv';
 }else {
@@ -15,7 +28,7 @@ if (strlen($_COOKIE['bduss'])>0){
 	curl_close($tbscurl);
 	$check_login=json_decode($tbsjson,1)["is_login"];
 	if ($check_login==1){
-		echo '<div class="col-md-12 center-block"" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="https://www.baifubao.com/portrait_img/sys/portrait/item/'.$_COOKIE["baiduid"].'?isuname=1" class="img-rounded" height=\'80px\' width=\'80px\' "></span>';
+		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="'.head().'" class="img-rounded" height=\'80px\' width=\'80px\' "></span>';
 		if ($posturl=='./?m=suv'){
 			echo '若需要用第一种获取方式请点<a href="./" >这里</a>';
 		}else {

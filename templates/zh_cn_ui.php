@@ -1,4 +1,4 @@
-<?php require( './config.php'); ?>
+<?php require( './config.php'); include( './lib/quota.php');?>
 <!DOCTYPE html>
 <html lang="zh-CN">
     
@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="KDWNIL Union of Cloud Computing (https://nullmix.ml)" />
+        <meta name="author" content="KDWNIL Union of Cloud Computing (https://kdwnil.ml)" />
         <meta name="description" content="百度网盘直链工具" />
         <meta name="keywords" content="<?echo $seo?>" />
         <link rel="icon" href="./favicon.ico">
@@ -58,27 +58,59 @@
                         <?php if(strlen($_COOKIE[ 'bduss'])>0){echo '
                         <li><a href="./?m=bus"><span class="glyphicon glyphicon-link"></span> 分享链接直链 </a>
                         </li>
-                        <li><a href="./?m=dl"><span class="glyphicon glyphicon-cloud-download"></span> 离线下载 </a>
+                        <li><a href="./?m=search"><span class="glyphicon glyphicon-search"></span> 搜索 </a>
                         </li>
-                        <li><a href="./?m=list&path=%252F&page=1"><span class="glyphicon glyphicon-th-list"></span> 文件列表 </a>
+                        <li ><a href="./?m=dl"><span class="glyphicon glyphicon-cloud-download"></span> 离线下载 </a>
+                        </li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list"></span> 文件列表 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./?m=list&by=time&order=asc&path=%252F&page=1">修改时间顺序</a>
+                                </li>
+                                <li><a href="./?m=list&by=name&order=asc&path=%252F&page=1">文件名顺序</a>
+                                </li>
+                                <li><a href="./?m=list&by=size&order=asc&path=%252F&page=1">大小顺序</a>
+                                </li>
+                                <li><a href="./?m=list&by=time&order=desc&path=%252F&page=1">修改时间顺序(倒序)</a>
+                                </li>
+                                <li><a href="./?m=list&by=name&order=desc&path=%252F&page=1">文件名顺序(倒序)</a>
+                                </li>
+                                <li><a href="./?m=list&by=size&order=desc&path=%252F&page=1">大小顺序(倒序)</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="./logout.php"><span class="glyphicon glyphicon-log-out" </span> 退出</a>
+                            <a href="./logout.php"> <span class="glyphicon glyphicon-log-out" </span> 退出</a>
                         </li>'; } if(preg_match("/{$admin_id}/",$_COOKIE["baiduid"])){ echo '
                         <li><a href="./?m=admin"><span class="glyphicon glyphicon-cloud"></span> 网站后台 </a>
-                        </li>'; } ?></ul>
+                        </li>'; } if(strlen($_COOKIE[ 'bduss'])>0){echo '
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user" </span> '.urldecode($_COOKIE['baiduid']).'</a>
+                            <ul class="dropdown-menu">'.quota().'</ul>
+                        </li>';}?></ul>
                     </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <?php if(strlen($_GET[ "m"]) >0 && file_exists('./lib/'.$_GET["m"].'.php')){ include('./lib/'.$_GET["m"].'.php'); }else{ include( './lib/main.php'); } ?>
+        <?php if(strlen($_GET[ "m"])>0 && file_exists('./lib/'.$_GET["m"].'.php')){ include('./lib/'.$_GET["m"].'.php'); }else{ include( './lib/main.php'); } ?>
         <center> <b>
 
+
+
+
+
+
+
             <?echo $version ?><br>©2015-<?php echo date("Y") ?> <a href="https://nullmix.ml">NULLMIX</a>
+
+
+
+
+
+
 
         </b>
         </center>

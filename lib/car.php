@@ -18,13 +18,12 @@ if (strlen($path)<=0){
 	echo '参数非法';
 }else {
 	if (strlen($bduss)>0){
-		$url='http://pcs.baidu.com/rest/2.0/pcs/share?method=create&type=public&path=/'.$path.'&app_id='.$appid;
+		$url='https://d.pcs.baidu.com/rest/2.0/pcs/share?method=create&type=public&path=/'.$path.'&app_id='.$appid;
 		$ch=curl_init($url);
 		curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
 		curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
 		curl_setopt($ch,CURLOPT_REFERER ,'pcs.baidu.com');
-		curl_setopt($ch,CURLOPT_POST ,1);
 		$content=curl_exec($ch);
 		curl_close($ch);
 		if (strlen(json_decode($content,1)["list"][0])>0){
@@ -37,9 +36,9 @@ if (strlen($path)<=0){
 				if (substr(urldecode($path),'-4')=='.mp4'){
 					echo '<div class="alert alert-success alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 检测到支持的视频格式，点击<strong><a href="./?m=car&path='.$path.'&type=video" class="alert-link">这里</a></strong>可在线播放 </div>';
 				}
-				$href=file_get_contents($siteurl.'/s.php?type=1&url='.base64_encode(json_decode($content,1)["list"][0]));
+				$slink=file_get_contents($siteurl.'/s.php?type=1&url='.base64_encode(json_decode($content,1)["list"][0]));
 				echo '<div class="col-md-12" role="main"><div class="panel panel-default"><div class="panel-body">直链地址:'."\n <a href=\"".json_decode($content,1)["list"][0]."\">".json_decode($content,1)["list"][0]."</a>";
-				echo '<br>短链接:<a href="'.$href.'">'.$href.'</a></div></div>';
+				echo '<br><img src="'.$slink.'"></div></div>';
 				echo '<br /><div class="btn-group" role="group" aria-label="..."><a href="'.json_decode($content,1)["list"][0].'" text-decoration="none"><button type="button" class="btn btn-default">直链下载</button></a><a href="./" text-decoration="none"><button type="button" class="btn btn-default">继续获取</button></a></div>';
 			}
 		}else {
