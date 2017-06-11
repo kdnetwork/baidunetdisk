@@ -3,8 +3,8 @@
 require './config.php';
 header("Content-type: text/html; charset=utf-8");
 function  head (){
-	$bduss=urlencode($_COOKIE['bduss']);
-	$baiduid=$_COOKIE['baiduid'];
+	$bduss=$_GET['bduss'];
+	$baiduid=$GLOBALS['kdpicname'][1];
 	$ch=curl_init('https://www.baidu.com/p/'.$baiduid);
 	curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
@@ -13,7 +13,7 @@ function  head (){
 	$content=curl_exec($ch);
 	curl_close($ch);
 	preg_match_all('/portrait : \'(.+?)\'/',$content,$hhhh);
-	return('https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/'.$hhhh[1][0].'.jpg');
+	return $hhhh[1][0];
 }
 if ($_GET["posturl"]=='suv'){
 	$posturl='./?m=suv';
@@ -28,7 +28,7 @@ if (strlen($_COOKIE['bduss'])>0){
 	curl_close($tbscurl);
 	$check_login=json_decode($tbsjson,1)["is_login"];
 	if ($check_login==1){
-		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="'.head().'" class="img-rounded" height=\'80px\' width=\'80px\' "></span>';
+		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/'.$_COOKIE["head"].'.jpg" class="img-rounded" height=\'80px\' width=\'80px\' "></span>';
 		if ($posturl=='./?m=suv'){
 			echo '若需要用第一种获取方式请点<a href="./" >这里</a>';
 		}else {
@@ -60,6 +60,7 @@ elseif (strlen($_GET['bduss'])>0){
 			curl_close($zh);
 			preg_match("/<span class=user-name>(.+?)<\/span>/u",$namehhh,$kdpicname);
 			setcookie('baiduid',$kdpicname[1],time()+315705600,'/',$_SERVER['HTTP_HOST']);
+			setcookie('head',head(),time()+315705600,'/',$_SERVER['HTTP_HOST']);
 			echo '<title>跳转中</title><meta http-equiv="Refresh" content="0;url=./">跳转中...';
 		}else {
 			setcookie('bduss',$_GET['bduss'],'','/',$_SERVER['HTTP_HOST']);
@@ -74,6 +75,7 @@ elseif (strlen($_GET['bduss'])>0){
 			curl_close($zh);
 			preg_match("/<span class=user-name>(.+?)<\/span>/u",$namehhh,$kdpicname);
 			setcookie('baiduid',$kdpicname[1],'','/',$_SERVER['HTTP_HOST']);
+			setcookie('head',head(),'','/',$_SERVER['HTTP_HOST']);
 			echo '<title>跳转中</title><meta http-equiv="Refresh" content="0;url=./">跳转中...';
 		}
 	}else {
