@@ -34,7 +34,7 @@
 这次可能是最后一次更新了,这里的文件已经跟KDWNIL里面的是一样的了,跟百度干我实在干不下去了,感谢大家的支持(ps:这个直链工具差不多死透了)
 
 ### 捐助
-\(这是哭穷吗\)[https://paypal.me/kdwnil](https://paypal.me/kdwnil)
+\(这是哭穷吗\)[https://nullmix.ml/?type=donate](https://nullmix.ml/?type=donate)
 
 ### 开发者列表 
 #### 主要 
