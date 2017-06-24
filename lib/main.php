@@ -1,19 +1,15 @@
-
 <?php
 require './config.php';
 header("Content-type: text/html; charset=utf-8");
-function  head (){
-	$bduss=$_GET['bduss'];
-	$baiduid=$GLOBALS['kdpicname'][1];
-	$ch=curl_init('https://www.baidu.com/p/'.$baiduid);
+function  head ($bduss){
+	$ch=curl_init('http://top.baidu.com/user/pass');
 	curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
 	curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
 	curl_setopt($ch,CURLOPT_REFERER ,'www.baidu.com');
 	$content=curl_exec($ch);
 	curl_close($ch);
-	preg_match_all('/portrait : \'(.+?)\'/',$content,$hhhh);
-	return $hhhh[1][0];
+	return $content;
 }
 if ($_GET["posturl"]=='suv'){
 	$posturl='./?m=suv';
@@ -28,7 +24,7 @@ if (strlen($_COOKIE['bduss'])>0){
 	curl_close($tbscurl);
 	$check_login=json_decode($tbsjson,1)["is_login"];
 	if ($check_login==1){
-		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/'.$_COOKIE["head"].'.jpg" class="img-rounded" height=\'80px\' width=\'80px\' "></span>';
+		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="'.json_decode(head($_COOKIE['bduss']),1)["avatarUrl"].'.jpg" class="img-rounded" height=\'55px\' width=\'55px\' "></span>';
 		if ($posturl=='./?m=suv'){
 			echo '若需要用第一种获取方式请点<a href="./" >这里</a>';
 		}else {
@@ -51,32 +47,14 @@ elseif (strlen($_GET['bduss'])>0){
 			setcookie('bduss',$_GET['bduss'],time()+315705600,'/',$_SERVER['HTTP_HOST']);
 			setcookie('ptoken',$_GET['ptoken'],time()+315705600,'/',$_SERVER['HTTP_HOST']);
 			setcookie('stoken',$_GET['stoken'],time()+315705600,'/',$_SERVER['HTTP_HOST']);
-			$bduss=$_GET["bduss"];
-			$zh=curl_init('https://www.baidu.com');
-			curl_setopt($zh,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
-			curl_setopt($zh,CURLOPT_RETURNTRANSFER ,1);
-			curl_setopt($zh,CURLOPT_COOKIE ,'BDUSS='.$bduss);
-			$namehhh=curl_exec($zh);
-			curl_close($zh);
-			preg_match("/<span class=user-name>(.+?)<\/span>/u",$namehhh,$kdpicname);
-			setcookie('baiduid',$kdpicname[1],time()+315705600,'/',$_SERVER['HTTP_HOST']);
-			setcookie('head',head(),time()+315705600,'/',$_SERVER['HTTP_HOST']);
+			setcookie('baiduid',json_decode(head($_GET['bduss']),1)["un"],time()+315705600,'/',$_SERVER['HTTP_HOST']);
 			echo '<title>跳转中</title><meta http-equiv="Refresh" content="0;url=./">跳转中...';
 		}else {
-			setcookie('bduss',$_GET['bduss'],'','/',$_SERVER['HTTP_HOST']);
-			setcookie('ptoken',$_GET['ptoken'],'','/',$_SERVER['HTTP_HOST']);
-			setcookie('stoken',$_GET['stoken'],'','/',$_SERVER['HTTP_HOST']);
-			$bduss=$_GET["bduss"];
-			$zh=curl_init('https://www.baidu.com');
-			curl_setopt($zh,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
-			curl_setopt($zh,CURLOPT_RETURNTRANSFER ,1);
-			curl_setopt($zh,CURLOPT_COOKIE ,'BDUSS='.$bduss);
-			$namehhh=curl_exec($zh);
-			curl_close($zh);
-			preg_match("/<span class=user-name>(.+?)<\/span>/u",$namehhh,$kdpicname);
-			setcookie('baiduid',$kdpicname[1],'','/',$_SERVER['HTTP_HOST']);
-			setcookie('head',head(),'','/',$_SERVER['HTTP_HOST']);
-			echo '<title>跳转中</title><meta http-equiv="Refresh" content="0;url=./">跳转中...';
+			setcookie('bduss',$_GET['bduss'],time()+300,'/',$_SERVER['HTTP_HOST']);
+			setcookie('ptoken',$_GET['ptoken'],time()+300,'/',$_SERVER['HTTP_HOST']);
+			setcookie('stoken',$_GET['stoken'],time()+300,'/',$_SERVER['HTTP_HOST']);
+			setcookie('baiduid',json_decode(head($_GET['bduss']),1)["un"],time()+300,'/',$_SERVER['HTTP_HOST']);
+			echo '<title>跳转中</title><meta http-equiv="Refresh" content="2;url=./">未设置为保存cookie，cookie生命周期强制改为300s，跳转中...';
 		}
 	}else {
 		echo '<title>跳转中</title><meta http-equiv="Refresh" content="1;url=./">bduss无效...';
