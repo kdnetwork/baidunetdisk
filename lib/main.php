@@ -1,16 +1,7 @@
 <?php
 require './config.php';
+require './lib/head.php';
 header("Content-type: text/html; charset=utf-8");
-function  head ($bduss){
-	$ch=curl_init('http://top.baidu.com/user/pass');
-	curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
-	curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
-	curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
-	curl_setopt($ch,CURLOPT_REFERER ,'www.baidu.com');
-	$content=curl_exec($ch);
-	curl_close($ch);
-	return $content;
-}
 if ($_GET["posturl"]=='suv'){
 	$posturl='./?m=suv';
 }else {
@@ -24,7 +15,7 @@ if (strlen($_COOKIE['bduss'])>0){
 	curl_close($tbscurl);
 	$check_login=json_decode($tbsjson,1)["is_login"];
 	if ($check_login==1){
-		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img src="'.json_decode(head($_COOKIE['bduss']),1)["avatarUrl"].'.jpg" class="img-rounded" height=\'55px\' width=\'55px\' "></span>';
+		echo '<div class="col-md-12 center-block" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img id="iavatar" src="./?m=avatar" class="img-rounded" height=\'55px\' width=\'55px\' "></span>';
 		if ($posturl=='./?m=suv'){
 			echo '若需要用第一种获取方式请点<a href="./" >这里</a>';
 		}else {
