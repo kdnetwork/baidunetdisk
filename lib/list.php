@@ -28,7 +28,6 @@ curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWe
 curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
 curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
 curl_setopt($ch,CURLOPT_REFERER ,'pcs.baidu.com');
-curl_setopt($ch,CURLOPT_POST ,1);
 $content=curl_exec($ch);
 curl_close($ch);
 //echo $content;
