@@ -22,7 +22,6 @@ if (strlen($path)<=0){
 		$ch=curl_init($url);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
 		curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
-		curl_setopt($ch,CURLOPT_POST ,1);
 		$content=curl_exec($ch);
 		curl_close($ch);
 		//echo $content;
