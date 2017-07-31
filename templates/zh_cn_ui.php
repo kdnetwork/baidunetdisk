@@ -1,7 +1,6 @@
 <?php require( './config.php'); include( './lib/quota.php');?>
 <!DOCTYPE html>
 <html lang="zh-CN">
-    
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,26 +96,11 @@
         </nav>
         <?php if(strlen($_GET[ "m"])>0 && file_exists('./lib/'.$_GET["m"].'.php')){ include('./lib/'.$_GET["m"].'.php'); }else{ include( './lib/main.php'); } ?>
         <center> <b>
-
-
-
-
-
-
-
             <?echo $version ?><br>©2015-<?php echo date("Y") ?> <a href="https://nullmix.ml">NULLMIX</a>
-
-
-
-
-
-
-
         </b>
         </center>
-    </body>
     <!--js-->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+</body>
 </html>
