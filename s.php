@@ -1,9 +1,9 @@
 <?php
-require dirname(__FILE__).'/config.php';
-if($chinamode==1){
-    echo 'undo';
-    die;
+if ($chinamode==1){
+	echo 'undo';
+	die ;
 }
+require dirname(__FILE__).'/config.php';
 function  qrcode (){
 	$geturl=$GLOBALS["siteurl"].'/s.php?surl='.$_GET["url"];
 	header("Content-type: text/html; charset=utf-8");

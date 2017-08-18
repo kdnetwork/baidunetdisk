@@ -6,3 +6,8 @@
             </center>
         </div>
     </div>
+    <?
+    if($_GET["errno"]=='451'){
+        echo '<div class="panel panel-default"><div class="panel-body"><center><b>根据您所在的地区的相关政策，本网站不可用</b></center></div></div>';
+    }
+    ?>

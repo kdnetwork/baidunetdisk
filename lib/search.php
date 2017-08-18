@@ -1,7 +1,7 @@
 <?php
 $wd=$_GET["wd"];
 
-    echo "<div class=\"col-md-12\" role=\"main\">
+    echo "<div class=\"col-md-8 col-md-offset-2\" role=\"main\">
             <center><h1>Mi<span style=\"color:#F00\">x</span> Search α </h1>For K<span style=\"color:#F00\">D</span>Cloud</center><br>  
             <form action=\"./\" method=\"get\">
             <div class=\"input-group input-group-lg\">  
@@ -23,7 +23,7 @@ curl_close($ch);
 //echo $content;
 $a=json_decode($content,1);
 if (count($a["list"])>0){
-	echo '<div class="col-md-12" role="main"><center><div class="table-responsive"><table  class="table table-hover table-striped table-condensed table-responsive" ><th class="mdl-data-table__cell--non-numeric"  style="width:5%">类型</th><th class="mdl-data-table__cell--non-numeric ">文件名称</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载1</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载2</th>';
+	echo '<div class="col-md-8 col-md-offset-2" role="main"><center><div class="table-responsive"><table  class="table table-hover table-striped table-condensed table-responsive" ><th class="mdl-data-table__cell--non-numeric"  style="width:5%">类型</th><th class="mdl-data-table__cell--non-numeric ">文件名称</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载1</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载2</th>';
 	for ($x=0;
 	$x<=count($a["list"])-1;
 	$x++){
@@ -35,6 +35,6 @@ if (count($a["list"])>0){
 	}
 	echo '</table></div></center></div>';
 }else {
-	echo '无结果~';
+	echo '<div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">无结果~</p></div></div></div>';
 }
 }

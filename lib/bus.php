@@ -1,8 +1,6 @@
 <?php
 require './config.php';
-header("Content-type: text/html; charset=utf-8");
-//echo '<center>';
-echo '<br><div class="col-md-12" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">指南</h3></div><div class="panel-body">请先输入链接地址(暂不支持文件夹以及文件夹内文件、加密分享、部分https链接)，点击上面的<b>提交按钮</b>后获得验证码（若无验证码请重新获取）</div></div><center>';
+echo '<br><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">指南</h3></div><div class="panel-body">请先输入链接地址(暂不支持文件夹以及文件夹内文件、加密分享、部分https链接)，点击上面的<b>提交按钮</b>后获得验证码（若无验证码请重新获取）</div></div><center>';
 if (strlen($_POST['url'])>0){
 	if (strlen($_POST["spwd"])>0){
 		$pwurl=$_POST['url'];
@@ -70,7 +68,7 @@ if (strlen($_POST['url'])>0){
 	}
 	elseif ($yzm["errno"]==-19){
 		echo '<br /><img src="data:image/jpg;base64,'.base64_encode(file_get_contents($yzm["img"])).'" width="300" height="90" />';
-		echo '<div class="col-md-12" role="main"><form action="./?m=bus&uk='.$json["uk"].'&shareid='.$json["shareid"].'&fid_list=%5B'.$json["file_list"][0]["fs_id"].'%5D&downloadsign='.$json["downloadsign"].'&timestamp='.$json["timestamp"].'&vcode='.$yzm["vcode"].'" method="post"><div class="input-group"><input type="text" placeholder="请输入图中验证码..." class="form-control" name="input" aria-describedby="sizing-addon1"><span class="input-group-btn"><button class="btn btn-default" type="submit">提交</button></span></div></div></form></div><br>';
+		echo '<div class="col-md-8 col-md-offset-2" role="main"><form action="./?m=bus&uk='.$json["uk"].'&shareid='.$json["shareid"].'&fid_list=%5B'.$json["file_list"][0]["fs_id"].'%5D&downloadsign='.$json["downloadsign"].'&timestamp='.$json["timestamp"].'&vcode='.$yzm["vcode"].'" method="post"><div class="input-group"><input type="text" placeholder="请输入图中验证码..." class="form-control" name="input" aria-describedby="sizing-addon1"><span class="input-group-btn"><button class="btn btn-default" type="submit">提交</button></span></div></div></form></div><br>';
 	}else {
 		echo "<br>请<a href=\"./?m=bus\">重新输入</a>";
 	}

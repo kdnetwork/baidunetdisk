@@ -9,24 +9,13 @@
   - 百度云离线下载
   - 百度云个人文件列表
   - 百度云个人文件搜索
+  - 根据ip进行地区封锁（精确到国家和地区）
+  - reCAPTCHA
 
 
 ### 安装
-自动安装未完成，现在请您自行修改config.php的内容
->\<?php  <br>
->$token='';//用于对接的token，必填，请到 https://pan.kdwnil.ml/?m=token 获取  <br>
->$url='';//您的网站的域名  <br>
->$siteurl='https://'.$url;//若您的网站不支持https请改为http<br>
->$admin_id='';管理员的百度id，暂时可不填  <br>
->$seo='百度网盘直链工具';//seo信息，自行修改，分隔用半角逗号","<br>
->$version='v5.2';  <br>
->$language='zh_cn'//语言选项，暂时只支持简体中文<br>
->$chinamode=0//chinamode is for Chinese user<br>
-
-### 检查更新
-
-由于程序还未能够在线检查更新，请手动到[kdwnil/baidunetdisk](https://github.com/kdwnil/baidunetdisk)检查是否有新版本
-
+请自行修改config.php的内容<br>
+config.php的注释已经写得很详细了
 ### 免费声明
 本程序开源且不会收费，如果您是收费获得本程序那么您可能被骗了
 

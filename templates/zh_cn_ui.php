@@ -4,6 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" type="image/png" href="/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="KDWNIL Union of Cloud Computing (https://kdwnil.ml)" />
         <meta name="description" content="百度网盘直链工具" />
@@ -47,12 +49,14 @@
  <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="./">
-                        百度网盘直链工具
+                        <img alt="KDCloud" src="./kdcloud100.png">
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="./"><span class="glyphicon glyphicon-home"></span> 主页 </a>
+                        </li>
+                        <li><a href="./?m=about"><span class="glyphicon glyphicon-book"></span> 用户须知 </a>
                         </li>
                         <?php if(strlen($_COOKIE[ 'bduss'])>0){echo '
                         <li><a href="./?m=bus"><span class="glyphicon glyphicon-link"></span> 分享链接直链 </a>
@@ -84,17 +88,17 @@
                             <a href="./logout.php"> <span class="glyphicon glyphicon-log-out" </span> 退出</a>
                         </li>'; } if(preg_match("/{$admin_id}/",$_COOKIE["baiduid"])){ echo '
                         <li><a href="./?m=admin"><span class="glyphicon glyphicon-cloud"></span> 网站后台 </a>
-                        </li>'; } if(strlen($_COOKIE[ 'bduss'])>0){echo '
+                        </li>'; } if(strlen($_COOKIE['bduss'])>0){echo '
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user" </span> '.urldecode($_COOKIE['baiduid']).'</a>
                             <ul class="dropdown-menu">'.quota().'</ul>
                         </li>';}?></ul>
-                    </li>
-                    </ul>
                 </div>
             </div>
         </nav>
         <?php if(strlen($_GET[ "m"])>0 && file_exists('./lib/'.$_GET["m"].'.php')){ include('./lib/'.$_GET["m"].'.php'); }else{ include( './lib/main.php'); } ?>
+        </div>
+        <div class="col-md-12">
         <center> <b>
             <?echo $version ?><br>©2015-<?php echo date("Y") ?> <a href="https://nullmix.ml">NULLMIX</a>
         </b>
@@ -102,5 +106,6 @@
     <!--js-->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <? if($_GET['m']=='bduss' && $chinamode==0 && $secret!==''){echo '<script src=\'https://www.google.com/recaptcha/api.js\'></script>';} ?>
 </body>
 </html>

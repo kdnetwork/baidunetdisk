@@ -1,25 +1,21 @@
 <?php
 require './config.php';
-header("Content-type: text/html; charset=utf-8");
 ignore_user_abort(true);
 $list=$_GET['page'];
 $bduss=urlencode($_COOKIE['bduss']);
 $order=$_GET['order'];
 $by=$_GET['by'];
-//echo '<title>文件列表</title>';
-//echo '<meta name="viewport" content="width=device-width,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">';
 if (strlen($_GET['path'])<=0){
 	$path='%2F';
 }else {
 	$path=$_GET['path'];
 }
 if (strlen($list)<=0){
-	echo '<meta http-equiv="Refresh" content="2;url=./?m=list&path='.$path.'&page=1">';
-	//$list=1
+	header('Location: ./?m=list&path='.$path.'&page=1');
 	$url='http://pcs.baidu.com/rest/2.0/pcs/file?path=/'.$path.'&method=list&app_id='.$appid.'&by=name&by='.$by.'&order='.$order.'&limit=0-10';
 }
 elseif ($list<=0){
-	echo '<meta http-equiv="Refresh" content="0;url=./?m=list">参数非法<br/>';
+	echo '<meta http-equiv="Refresh" content="0;url=./?m=list"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">参数非法</p></div></div></div><br/>';
 }else {
 	$url='http://pcs.baidu.com/rest/2.0/pcs/file?path=/'.$path.'&method=list&app_id='.$appid.'&by=name&by='.$by.'&order='.$order.'&limit='.($list-1).'0-'.$list.'0';
 }
@@ -30,12 +26,11 @@ curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
 curl_setopt($ch,CURLOPT_REFERER ,'pcs.baidu.com');
 $content=curl_exec($ch);
 curl_close($ch);
-//echo $content;
 if (json_decode($content,1)["error_code"]==31045){
-	echo '<meta http-equiv="Refresh" content="2;url=./">您还没有登录或文件不存在';
+	echo '<meta http-equiv="Refresh" content="2;url=./"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">您还没有登录或文件不存在</p></div></div></div>';
 }else {
 	$b=json_decode($content,1);
-	echo '<div class="col-md-12" role="main"><ol class="breadcrumb"><li><a href="'.$siteurl.'?m=list&path='.$path.'&page=1">根目录'.urldecode($path).'</a></li></ol><center><div class="table-responsive"><table  class="table table-hover table-striped table-condensed table-responsive" ><th class="mdl-data-table__cell--non-numeric"  style="width:5%">类型</th><th class="mdl-data-table__cell--non-numeric ">文件名称</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载1</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载2</th>';
+	echo '<div class="col-md-12" role="main"><ol class="breadcrumb"><li>根目录'.urldecode($path).'</li></ol><center><div class="table-responsive"><table  class="table table-hover table-striped table-condensed table-responsive" ><th class="mdl-data-table__cell--non-numeric"  style="width:5%">类型</th><th class="mdl-data-table__cell--non-numeric ">文件名称</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载1</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载2</th>';
 	for ($x=0;
 	$x<=count($b["list"])-1;
 	$x++){
@@ -47,17 +42,10 @@ if (json_decode($content,1)["error_code"]==31045){
 	}
 }
 echo '</table></div></center></div><br><br><nav aria-label="..."><ul class="pager">';
-if ($list==1){
-	echo '';
-}else {
+if ($list==!1){
 	echo '<li class="previous"><a href="./?m=list&by='.$by.'&order='.$order.'&path='.urlencode($path).'&page='.($list-1).'"><span aria-hidden="true">&larr;</span> 上一页 </a></li>';
 }
-//if(urldecode($path) == '/'){
-echo '';
-//}else{echo '<center><li><a href="'.$_SERVER['HTTP_REFERER'].'">上一目录</a></li></center>';}
-if (count($b["list"])<10){
-	echo '';
-}else {
+if (count($b["list"])>=10){
 	echo '<li class="next"><a href="./?m=list&by='.$by.'&order='.$order.'&path='.urlencode($path).'&page='.($list+1).'"> 下一页 <span aria-hidden="true">&rarr;</span></a></li></ul></nav>';
 }
 echo '</div>';
