@@ -7,7 +7,7 @@ if(strlen($banlocation)>0){
     header("HTTP/1.1 451 Unavailable For Legal Reasons"); 
 }
 if(preg_match_all("/{$banlocation}/",IP::find($_SERVER["HTTP_X_FORWARDED_FOR"])[0]) && $_GET['m']!=='error' && $_GET['m']!=='avatar'){
-    header("HTTP/1.1 301 Moved Permanently");
+    //header("HTTP/1.1 301 Moved Permanently");//被301坑到x2
 	header('Location: ./?m=error&errno=451');
 	die;//老子怂还不行吗
 }
