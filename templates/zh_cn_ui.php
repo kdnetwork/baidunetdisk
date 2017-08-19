@@ -56,8 +56,6 @@
                     <ul class="nav navbar-nav">
                         <li><a href="./"><span class="glyphicon glyphicon-home"></span> 主页 </a>
                         </li>
-                        <li><a href="./?m=about"><span class="glyphicon glyphicon-book"></span> 用户须知 </a>
-                        </li>
                         <?php if(strlen($_COOKIE[ 'bduss'])>0){echo '
                         <li><a href="./?m=bus"><span class="glyphicon glyphicon-link"></span> 分享链接直链 </a>
                         </li>
@@ -86,8 +84,6 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="./logout.php"> <span class="glyphicon glyphicon-log-out" </span> 退出</a>
-                        </li>'; } if(preg_match("/{$admin_id}/",$_COOKIE["baiduid"])){ echo '
-                        <li><a href="./?m=admin"><span class="glyphicon glyphicon-cloud"></span> 网站后台 </a>
                         </li>'; } if(strlen($_COOKIE['bduss'])>0){echo '
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user" </span> '.urldecode($_COOKIE['baiduid']).'</a>
