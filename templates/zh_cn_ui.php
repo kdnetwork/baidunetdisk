@@ -49,7 +49,7 @@
  <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="./">
-                        <img alt="KDCloud" src="./kdcloud100.png">
+                        百度网盘工具
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
