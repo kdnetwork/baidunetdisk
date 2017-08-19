@@ -23,9 +23,9 @@ if (strlen($_COOKIE['bduss'])>0){
 elseif (strlen($_GET['bduss'])>0){
 	if ($chinamode==0 && $secret!==''){
 		$captchaback=json_decode(scurl ('https://www.google.com/recaptcha/api/siteverify','post','secret='.$secret.'&response='.$_GET["g-recaptcha-response"].'&remoteip='.$_SERVER["HTTP_X_FORWARDED_FOR"],'','',3,'',''),1);
-		if ($captchaback["success"]!=='true'){
+		if ($captchaback["success"]!=1){
 			echo '<title>跳转中</title><meta http-equiv="Refresh" content="5;url='.$_SERVER['HTTP_REFERER'].'"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">reCAPTCHA验证失败,请重试...</p></div></div></div>';
-			die ;
+			die;
 		}
 	}
 	$check_login=json_decode(scurl ('http://tieba.baidu.com/dc/common/tbs','get','','BDUSS='.$_GET['bduss'],'',1,'',''),1)["is_login"];
@@ -47,6 +47,5 @@ elseif (strlen($_GET['bduss'])>0){
 		echo '<title>跳转中</title><meta http-equiv="Refresh" content="1;url=./"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">bduss无效...</p></div></div></div>';
 	}
 }else {
-	echo '<div class="alert alert-warning alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> 您还没有登录,要体验更多功能请先<strong><a href="./?m=bduss&fr='.urlencode($siteurl).'" class="alert-link">登录</a></strong> </div>';
 	include ('./lib/bus.php');
 }

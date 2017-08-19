@@ -1,6 +1,29 @@
 <?php
 require './config.php';
 ignore_user_abort(true);
+function  showlistname ($path){
+	$listname=strtok($path,"/");
+	$a='[';
+	while ($listname!==false){
+		$a.="\"{$listname}\",";
+		$listname=strtok("/");
+	}
+	$a.="\"\"]";
+	$b=json_decode($a,1);
+	$aaa='';
+	for ($x=0;
+	$x<=count($b)-2;
+	$x++){
+		$aaa.= '<li><a href="./?m=list&order='.$order.'&by='.$by.'&page=1&path=';
+		for ($y=0;
+		$y<=$x;
+		$y++){
+			$aaa.= $b[$y].'/';
+		}
+		$aaa.= '">'.$b[$x].'</a></li>';
+	}
+	return $aaa;
+}
 $list=$_GET['page'];
 $bduss=urlencode($_COOKIE['bduss']);
 $order=$_GET['order'];
@@ -11,11 +34,11 @@ if (strlen($_GET['path'])<=0){
 	$path=$_GET['path'];
 }
 if (strlen($list)<=0){
-	header('Location: ./?m=list&path='.$path.'&page=1');
+    echo '<meta http-equiv="Refresh" content="0;url=./?m=list&order='.$order.'&by='.$by.'&page=1&path=/">';
 	$url='http://pcs.baidu.com/rest/2.0/pcs/file?path=/'.$path.'&method=list&app_id='.$appid.'&by=name&by='.$by.'&order='.$order.'&limit=0-10';
 }
 elseif ($list<=0){
-	echo '<meta http-equiv="Refresh" content="0;url=./?m=list"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">参数非法</p></div></div></div><br/>';
+	echo '<meta http-equiv="Refresh" content="0;url=./?m=list&order='.$order.'&by='.$by.'&page=1&path=/"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">参数非法</p></div></div></div><br/>';
 }else {
 	$url='http://pcs.baidu.com/rest/2.0/pcs/file?path=/'.$path.'&method=list&app_id='.$appid.'&by=name&by='.$by.'&order='.$order.'&limit='.($list-1).'0-'.$list.'0';
 }
@@ -30,7 +53,7 @@ if (json_decode($content,1)["error_code"]==31045){
 	echo '<meta http-equiv="Refresh" content="2;url=./"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">您还没有登录或文件不存在</p></div></div></div>';
 }else {
 	$b=json_decode($content,1);
-	echo '<div class="col-md-12" role="main"><ol class="breadcrumb"><li>根目录'.urldecode($path).'</li></ol><center><div class="table-responsive"><table  class="table table-hover table-striped table-condensed table-responsive" ><th class="mdl-data-table__cell--non-numeric"  style="width:5%">类型</th><th class="mdl-data-table__cell--non-numeric ">文件名称</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载1</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载2</th>';
+	echo '<div class="col-md-12" role="main"><ol class="breadcrumb"><li><a href="./?m=list&order='.$order.'&by='.$by.'&page='.$list.'&path=/">根目录</a></li>'.showlistname(urldecode($path)).'</ol><center><div class="table-responsive"><table  class="table table-hover table-striped table-condensed table-responsive" ><th class="mdl-data-table__cell--non-numeric"  style="width:5%">类型</th><th class="mdl-data-table__cell--non-numeric ">文件名称</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载1</th><th class="mdl-data-table__cell--non-numeric"  style="width:9%">下载2</th>';
 	for ($x=0;
 	$x<=count($b["list"])-1;
 	$x++){
