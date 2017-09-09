@@ -1,6 +1,6 @@
 # 百度网盘直链工具
 
-![KDWNIL(https://pan.kdwnil.ml/favicon.ico)](https://pan.kdwnil.ml/favicon.ico)
+![KDWNIL(https://pan.kdwnil.ml/kdcloud200.png)](https://pan.kdwnil.ml/kdcloud200.png)
 
 
 现已支持
