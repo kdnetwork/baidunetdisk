@@ -49,6 +49,7 @@ if (strlen($_POST['url'])>0){
 		echo "您输入的网址:<a href=\"{$url}\">{$url}</a>";
 		$ch=curl_init($url);
 		curl_setopt($ch,CURLOPT_USERAGENT ,'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba');
+                curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
 		curl_setopt($ch,CURLOPT_HEADER ,1);
 		$content=curl_exec($ch);
