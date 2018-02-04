@@ -6,20 +6,17 @@ if (strlen($_POST['bduss'])<=0){
 }else {
 	$bduss=$_POST["bduss"];
 }
-if (strlen($_POST['path'])<=0){
-	$path=urlencode($_GET['path']);
-}else {
-	$path=urlencode($_POST['path']);
-}
+$path=urlencode($_REQUEST['path']);
 if (strlen($path)<=0){
 	echo '<meta http-equiv="Refresh" content="0;url=./?posturl=suv">';
 	echo '<div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">参数非法</p></div></div></div>';
 }else {
 	if (strlen($bduss)>0){
-	    echo '<div class="col-md-8 col-md-offset-2" role="main"><form action="./" method="get"><div class="input-group"><span class="input-group-addon" id="basic-addon3">/</span><input value="'.$path.'" type="text" placeholder="文件路径..." class="form-control" name="path" aria-describedby="sizing-addon1"><input type="hidden" name="m" value="suv"/><span class="input-group-btn"><button class="btn btn-default" type="submit">点击获取直链</button></span></div></div></form></div>';
-		echo '<div class="col-md-8 col-md-offset-2" role="main"><b>请尽量少用本功能，本功能可能导致您的百度账号进入黑名单导致今后10kb/s的下载速度</b><br>';
+	    echo '<div class="col-md-8 col-md-offset-2" role="main"><form action="./" method="get"><div class="input-group"><span class="input-group-addon" id="basic-addon3">/</span><input value="'.urldecode($path).'" type="text" placeholder="文件路径..." class="form-control" name="path" aria-describedby="sizing-addon1"><input type="hidden" name="m" value="suv"/><span class="input-group-btn"><button class="btn btn-default" type="submit">点击获取直链</button></span></div></div></form></div>';
+		echo '<div class="col-md-8 col-md-offset-2" role="main"><b>请尽量少用本功能，本功能可能导致您的百度账号进入黑名单导致今后10kb/s的下载速度</b>下载本页解析的链接请将user-agent更改为“netdisk;7.8.1;Red;android-android;4.3”<br>';
 		$url='https://d.pcs.baidu.com/rest/2.0/pcs/file?method=locatedownload&app_id=250528&ver=2.0&dtype=0&esl=1&ehps=0&check_blue=1&clienttype=1&path=/'.$path.'&logid=MTQ4Nzg2MTc5NjcyNTAuMzAzMjk0NDAxODQyNzQ0OQ==';
 		$ch=curl_init($url);
+    curl_setopt($ch,CURLOPT_USERAGENT ,'netdisk;7.8.1;Red;android-android;4.3');
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER ,1);
 		curl_setopt($ch,CURLOPT_COOKIE ,'BDUSS='.$bduss);
 		$content=curl_exec($ch);
@@ -31,7 +28,7 @@ if (strlen($path)<=0){
 		do {
 			$href=$json["urls"][$x]["url"];
 			//$slink=file_get_contents($siteurl.'/s.php?type=1&url='.base64_encode($href));
-			echo '<div class="panel panel-default"><div class="panel-body">直链地址'.($x+1).':<a href="'.$href.'" >'.$href.'</a><br /></div></div>';
+			echo '<div class="panel panel-default"><div class="panel-body">直链地址'.($x+1).':<a href="'.$href.'">'.$href.'</a><br /></div></div>';
 			$x++;
 		}
 		while ($x<=count($json["urls"])-1);

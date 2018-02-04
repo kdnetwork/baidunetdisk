@@ -8,5 +8,8 @@ if(strlen($_COOKIE['bduss']) >0){
     $kkk = curl_exec($lo);
     curl_close($lo);
 setcookie('bduss','',time()-9999,'/',$_SERVER['HTTP_HOST']);
-echo '<meta http-equiv="Refresh" content="0;url=./">正在退出...';
+if($_GET["fr"] == old){
+echo '<meta http-equiv="Refresh" content="0;url=./old">正在退出...';
+}else{echo '<meta http-equiv="Refresh" content="0;url=./">正在退出...';
+}
 }else{echo '<meta http-equiv="Refresh" content="0;url=./">请先登录!';}

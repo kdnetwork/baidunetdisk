@@ -1,11 +1,10 @@
 # 百度网盘直链工具
 
-![KDWNIL(https://pan.kdwnil.ml/kdcloud200.png)](https://pan.kdwnil.ml/kdcloud200.png)
+![KDWNIL(https://camo.githubusercontent.com/52caa72abd662a444c8d1cc3a843a745576a9e8e/68747470733a2f2f70616e2e6b64776e696c2e6d6c2f6b64636c6f75643230302e706e67)](https://camo.githubusercontent.com/52caa72abd662a444c8d1cc3a843a745576a9e8e/68747470733a2f2f70616e2e6b64776e696c2e6d6c2f6b64636c6f75643230302e706e67)
 
 
 现已支持
   - 百度网盘个人文件直链
-  - 百度云分享链接直链
   - 百度云离线下载
   - 百度云个人文件列表
   - 百度云个人文件搜索
@@ -18,9 +17,6 @@
 config.php的注释已经写得很详细了
 ### 免费声明
 本程序开源且不会收费，如果您是收费获得本程序那么您可能被骗了
-
-### 后话
-这次可能是最后一次更新了,这里的文件已经跟KDWNIL里面的是一样的了,跟百度干我实在干不下去了,感谢大家的支持(ps:这个直链工具差不多死透了)
 
 ### 捐赠
 [https://nullmix.ml/?type=donate](https://nullmix.ml/?type=donate)

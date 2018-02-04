@@ -1,5 +1,5 @@
 <?php
-$bduss=$_COOKIE["bduss"];
+function admin($bduss){
 $zh=curl_init('https://www.baidu.com');
 curl_setopt($zh,CURLOPT_USERAGENT ,'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
 curl_setopt($zh,CURLOPT_RETURNTRANSFER ,1);
@@ -20,3 +20,5 @@ echo '<div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-
 }else {
 	header('Location: ./?m=error&errno=illegal user');
 }
+}
+echo "暂停使用";

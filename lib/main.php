@@ -1,6 +1,4 @@
 <?php
-require './config.php';
-require './lib/head.php';
 if ($_GET["posturl"]=='suv'){
 	$posturl='./?m=suv';
 }else {
@@ -9,7 +7,7 @@ if ($_GET["posturl"]=='suv'){
 if (strlen($_COOKIE['bduss'])>0){
 	$check_login=json_decode(scurl ('http://tieba.baidu.com/dc/common/tbs','get','','BDUSS='.$_COOKIE['bduss'],'','','',''),1)["is_login"];
 	if ($check_login==1){
-		echo '<div class="col-md-8 col-md-offset-2 " role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"><img id="iavatar" src="./?m=avatar" class="img-rounded" height=\'55px\' width=\'55px\' "></span>';
+		echo '<div class="col-md-8 col-md-offset-2 " role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"></span>';
 		if ($posturl=='./?m=suv'){
 			echo '若需要用第一种获取方式请点<a href="./" >这里</a>';
 		}else {
@@ -21,13 +19,14 @@ if (strlen($_COOKIE['bduss'])>0){
 	}
 }
 elseif (strlen($_GET['bduss'])>0){
-	if ($chinamode==0 && $secret!==''){
+	if ($chinamode==0 && $secret!=='' && IP::find($_SERVER["HTTP_X_FORWARDED_FOR"])[0]!=='中国'){
 		$captchaback=json_decode(scurl ('https://www.google.com/recaptcha/api/siteverify','post','secret='.$secret.'&response='.$_GET["g-recaptcha-response"].'&remoteip='.$_SERVER["HTTP_X_FORWARDED_FOR"],'','',3,'',''),1);
 		if ($captchaback["success"]!=1){
 			echo '<title>跳转中</title><meta http-equiv="Refresh" content="5;url='.$_SERVER['HTTP_REFERER'].'"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">reCAPTCHA验证失败,请重试...</p></div></div></div>';
 			die;
 		}
-	}
+	
+}
 	$check_login=json_decode(scurl ('http://tieba.baidu.com/dc/common/tbs','get','','BDUSS='.$_GET['bduss'],'',1,'',''),1)["is_login"];
 	if ($check_login==1){
 		if ($_GET["rm"]==1){
@@ -47,5 +46,5 @@ elseif (strlen($_GET['bduss'])>0){
 		echo '<title>跳转中</title><meta http-equiv="Refresh" content="1;url=./"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">bduss无效...</p></div></div></div>';
 	}
 }else {
-	include ('./lib/bus.php');
+	include ('./lib/bduss.php');
 }

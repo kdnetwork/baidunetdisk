@@ -1,5 +1,4 @@
 <?php
-require('./config.php');
 function quota(){
     $bduss=urlencode($_COOKIE['bduss']);
 	$baiduid=$_COOKIE['baiduid'];

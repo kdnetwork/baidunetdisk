@@ -1,6 +1,4 @@
 <?php
-require './config.php';
-ignore_user_abort(true);
 function  showlistname ($path){
 	$listname=strtok($path,"/");
 	$a='[';
@@ -8,17 +6,17 @@ function  showlistname ($path){
 		$a.="\"{$listname}\",";
 		$listname=strtok("/");
 	}
-	$a.="\"\"]";
+	$a.="\"\"]";//强行构造一个数组
 	$b=json_decode($a,1);
 	$aaa='';
 	for ($x=0;
 	$x<=count($b)-2;
 	$x++){
-		$aaa.= '<li><a href="./?m=list&order='.$order.'&by='.$by.'&page=1&path=';
+		$aaa.= '<li><a href="./?m=list&order='.$_GET['order'].'&by='.$_GET['by'].'&page=1&path=';
 		for ($y=0;
 		$y<=$x;
 		$y++){
-			$aaa.= $b[$y].'/';
+			$aaa.= '/'.$b[$y];
 		}
 		$aaa.= '">'.$b[$x].'</a></li>';
 	}
@@ -65,7 +63,7 @@ if (json_decode($content,1)["error_code"]==31045){
 	}
 }
 echo '</table></div></center></div><br><br><nav aria-label="..."><ul class="pager">';
-if ($list==!1){
+if ($list>1){
 	echo '<li class="previous"><a href="./?m=list&by='.$by.'&order='.$order.'&path='.urlencode($path).'&page='.($list-1).'"><span aria-hidden="true">&larr;</span> 上一页 </a></li>';
 }
 if (count($b["list"])>=10){
