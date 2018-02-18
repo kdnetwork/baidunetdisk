@@ -1,7 +1,7 @@
 <?php
 //die("已失效");
 //有哪位大神能解释一下那个logid是啥玩意。。。
-echo '<br><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">指南</h3></div><div class="panel-body">请先输入链接地址(暂不支持文件夹以及文件夹内文件、加密分享、部分https链接)，点击上面的<b>提交按钮</b>后获得验证码（若无验证码请重新获取），若最后获取到空白请检查验证码是否输入错误或连接是否失效并回去重新获取<br></div></div><center>';
+echo '<div class="alert alert-danger alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> <b>警告：百度开启了UA验证，请确保您的下载器的请求UA为“Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba”</b> </div><br><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">指南</h3></div><div class="panel-body">请先输入链接地址(暂不支持文件夹以及文件夹内文件、加密分享、部分https链接)，点击上面的<b>提交按钮</b>后获得验证码（若无验证码请重新获取），若最后获取到空白请检查验证码是否输入错误或连接是否失效并回去重新获取<br></div></div><center>';
 switch(@$_GET["step"]){
 case 2:
 $url=$_POST["url"];
