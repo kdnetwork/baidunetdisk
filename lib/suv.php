@@ -1,12 +1,10 @@
 <?php
-require './config.php';
-ignore_user_abort(true);
-if (strlen($_POST['bduss'])<=0){
-	$bduss=$_COOKIE['bduss'];
+if (strlen(@$_POST['bduss'])<=0){
+	$bduss=@$_COOKIE['bduss'];
 }else {
-	$bduss=$_POST["bduss"];
+	$bduss=@$_POST["bduss"];
 }
-$path=urlencode($_REQUEST['path']);
+$path=urlencode(@$_REQUEST['path']);
 if (strlen($path)<=0){
 	echo '<meta http-equiv="Refresh" content="0;url=./?posturl=suv">';
 	echo '<div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">参数非法</p></div></div></div>';
