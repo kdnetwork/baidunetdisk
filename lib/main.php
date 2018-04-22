@@ -1,11 +1,11 @@
 <?php
-if(@$_GET["posturl"]=='suv'){
+if($_GET["posturl"]=='suv'){
 	$posturl='./?m=suv';
 }
 else{
 	$posturl='./?m=car';
 }
-if(strlen(@$_COOKIE['bduss'])>0){
+if(strlen($_COOKIE['bduss'])>0){
 	$check_login=json_decode(scurl('http://tieba.baidu.com/dc/common/tbs','get','','BDUSS='.$_COOKIE['bduss'],'','','',''),1)["is_login"];
 	if($check_login==1){
 		echo '<div class="col-md-8 col-md-offset-2 " role="main"><div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">说明</h3></div><div class="panel-body"><span id="avatar" style="float:right;"></span>';
@@ -21,9 +21,9 @@ if(strlen(@$_COOKIE['bduss'])>0){
 		echo '<title>跳转中</title><meta http-equiv="Refresh" content="1;url=./logout.php"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">bduss无效...</p></div></div></div>';
 	}
 }
-elseif(strlen(@$_GET['bduss'])>0){
+elseif(strlen($_GET['bduss'])>0){
 	if($chinamode==0 && $secret!==''){
-		$captchaback=json_decode(scurl('https://www.google.com/recaptcha/api/siteverify','post','secret='.$secret.'&response='.$_GET["g-recaptcha-response"].'&remoteip='.$_SERVER["HTTP_X_FORWARDED_FOR"],'','',3,'',''),1);
+		$captchaback=json_decode(scurl('https://www.recaptcha.net/recaptcha/api/siteverify','post','secret='.$secret.'&response='.$_GET["g-recaptcha-response"].'&remoteip='.$_SERVER["HTTP_X_FORWARDED_FOR"],'','',3,'',''),1);
 		if($captchaback["success"]!=1){
 			echo '<title>跳转中</title><meta http-equiv="Refresh" content="5;url='.$_SERVER['HTTP_REFERER'].'"><div class="col-md-8 col-md-offset-2" role="main"><div class="panel panel-default"><div class="panel-body"><p class="text-center">reCAPTCHA验证失败,请重试...</p></div></div></div>';
 			die ;
