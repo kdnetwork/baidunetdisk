@@ -1,0 +1,34 @@
+{
+    "home" : {
+        "zh_cn_name" : "主页",
+        "en_us_name" : "Home"
+    },
+    "login" : {
+        "zh_cn_name" : "登录",
+        "en_us_name" : "Login"
+    },
+    "getlink" : {
+        "zh_cn_name" : "链接提取",
+        "en_us_name" : "GetLink"
+    },
+    "dl" : {
+        "zh_cn_name" : "离线下载",
+        "en_us_name" : "CloudDownloading"
+    },
+    "list" : {
+        "zh_cn_name" : "文件列表",
+        "en_us_name" : "FileList"
+    },
+    "search" : {
+        "zh_cn_name" : "搜索",
+        "en_us_name" : "Search"
+    },
+    "admin" : {
+        "zh_cn_name" : "管理后台",
+        "en_us_name" : "Admin"
+    },
+    "logout" :{
+        "zh_cn_name" : "登出",
+        "en_us_name" : "Logout"
+    }
+}

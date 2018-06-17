@@ -1,0 +1,2 @@
+<?php
+echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'. $translate["error"]["error"].'</div><div class="card-body"><p class="card-text">'. $translate["error"][@$_GET["errno"]].'</p></div></div></div>';
