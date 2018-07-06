@@ -16,7 +16,7 @@ function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header,$f
 			curl_setopt($ch,CURLOPT_USERAGENT,$user_agent);
 		break;
 	}
-	switch(type){
+	switch($type){
 		case "post":
 			$curltype='post';
 		break;
