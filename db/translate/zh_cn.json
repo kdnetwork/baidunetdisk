@@ -46,6 +46,7 @@
     "update" : "更新",
     "have_update" : "有更新",
     "no_update" : "没有更新",
+    "is_dir_location" : "这是一份多文件/文件夹分享，正在跳转……",
     "error" : {
         "error" : "错误",
         "" : "",

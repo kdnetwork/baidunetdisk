@@ -6,8 +6,8 @@
 define('SYSTEM_ROOT',dirname(__FILE__));
 define('PLUGINS_ROOT',dirname(__FILE__).'/plugins');
 define('LIB_ROOT',dirname(__FILE__).'/lib');
-define('SYSTEM_VER','v6.0.1');
-define('CHECK_VER',18070601);
+define('SYSTEM_VER','v6.1');
+define('CHECK_VER',18071201);
 /*load kernel files*/
 require(SYSTEM_ROOT.'/db/config.php');
 require(LIB_ROOT.'/scurl.php');
