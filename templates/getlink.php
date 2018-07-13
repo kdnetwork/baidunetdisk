@@ -146,7 +146,7 @@ switch (@$_REQUEST["l"]) {
                     //die("皮这一下你很开心吗(ㆀ˘･з･˘)");
                     $kdjsssb = array("pwd" => @$_REQUEST["spwd"],"vcode" => $input,"vcode_str" => $vcode);
                     $nurl = 'https://pan.baidu.com/share/verify?surl='.$_REQUEST["k"].'&t='.time().'000&channel=chunlei&web=1&app_id=250528&bdstoken=null&logid='.$logid.'&clienttype=0';
-                    $coo = trim(scurl($nurl,'post',$kdjsssb,'https://pan.baidu.com/wap/init?surl='.@$_REQUEST["k"],'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',15,1,true,10));
+                    $coo = trim(scurl($nurl,'post',$kdjsssb,'','https://pan.baidu.com/wap/init?surl='.@$_REQUEST["k"],'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',15,1,true,10));
                     if ($coo != "") {
                         if (preg_match('/BDCLND=(.+?); expires/iU',$coo,$cookie)) {
                             echo '<meta http-equiv="Refresh" content="5;url=./?m=getlink&l=web&step=4&url=https://pan.baidu.com/s/1'.@$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.urlencode(base64_encode('BDCLND='.$cookie[1].';')).'"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["real_pw"].'</p></div></div></div>';

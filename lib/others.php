@@ -102,3 +102,11 @@ function show_list_name($path){
 	    return '<li class="breadcrumb-item active" aria-current="page">'.$GLOBALS["translate"]["root"].'</li>';
 	}
 }
+/*auto get surl from sharelink*/
+function get_surl($url,$surl=''){
+    if($surl != ''){
+        return $surl;
+    }else{
+        return trim(preg_replace('/(http|https):\/\/pan.baidu.com\/(s\/|wap\/(link|init)\?surl=)/','',$url));
+    }
+}
