@@ -12,7 +12,7 @@ echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
 echo '<meta name="author" content="KDNETWORK(https://github.com/kdnetwork)" />';
 echo '<meta name="description" content="'.$seo_info["description"].'" />';
 echo '<meta name="keywords" content="'.$seo_info["keywords"].'" />';
-echo '<title>'.$seo_info["title"].'</title>';
+echo '<title>'.$seo_info["title"].'_' . $show_page_info[$mode][$language.'_name'] . '</title>';
 echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">';
 echo '';
 /*链接修正*/
@@ -69,13 +69,16 @@ else{
 }
 echo '<div align="center">';
 if(file_exists(SYSTEM_ROOT.'/templates/about.php')){
-	echo '<a href="./?m=about". target="_blank">ABOUT</a>';
+	echo ' · <a href="./?m=about". target="_blank">' . $translate["about"] . '</a>';
 }
 elseif(file_exists(SYSTEM_ROOT.'/about.html')){
-	echo '<a href="./about.html". target="_blank">ABOUT</a>';
+	echo ' · <a href="./about.html". target="_blank">' . $translate["about"] . '</a>';
+}
+if(file_exists(SYSTEM_ROOT.'/templates/status.php')){
+	echo ' · <a href="./?m=status". target="_blank">' . $translate["status"] . '</a>';
 }
 if($isloginn){
-	echo '  <a href="./?m=logout">'.$show_page_info["logout"][$language.'_name'].' </a>';
+	echo ' · <a href="./?m=logout">'.$show_page_info["logout"][$language.'_name'].' </a> · ';
 }
 echo '</div>';
 echo '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>';

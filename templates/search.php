@@ -1,6 +1,6 @@
 <?php
 if(is_login(@$_COOKIE["bduss"],'')){
-	echo '<div class="col-md-10 offset-md-1"><form action="./" method="get"><form action="./?m=search" method="post"><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'. @$_REQUEST["q"].'" name="q" id="input" value="'. @$_REQUEST["q"].'"><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div></form></div>';
+	echo '<div class="col-md-10 offset-md-1"><form action="./?m=search" method="post"><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'. @$_REQUEST["q"].'" name="q" id="input" value="'. @$_REQUEST["q"].'"><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div></form></div>';
 	if(@$_REQUEST["q"]!=""){
 		$back=json_decode(scurl('https://pcs.baidu.com/rest/2.0/pcs/file?method=search&app_id='.$appid.'&path=%2F&wd='.urlencode($_REQUEST["q"]).'&re=1','','','BDUSS='.$_COOKIE['bduss'],'pcs.baidu.com',1,'',''),true);
 		if(count($back["list"]) > 0){

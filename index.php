@@ -5,6 +5,9 @@ if($mode==""){
 	$mode='home';
 }
 require(dirname(__FILE__).'/init.php');
+if(($active_mode ==false && $active_date > date("Ymd")) && !preg_match('/' . $active_list . '/',$mode)){
+    header("Location: ./?m=error&errno=gg");
+}
 switch($mode){
 	case 'avatar';
 		if(is_login(@$_COOKIE["bduss"],'')){

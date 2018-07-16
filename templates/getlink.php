@@ -46,7 +46,6 @@ switch (@$_REQUEST["l"]) {
         }
         break;
     default:
-        //有哪位大神能解释一下那个logid是啥玩意......
         echo '<div class="col-md-10 offset-md-1"><div class="card text-white bg-warning"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["tips_web"].'</p></div></div></div>';
         $step = @$_REQUEST["step"];
         switch ($step) {
@@ -54,7 +53,7 @@ switch (@$_REQUEST["l"]) {
             case 2:
                 if (@$_REQUEST["spwd"] == "") {
                     if (@$_REQUEST["dir"] != "") {
-                        $url = 'https://pan.baidu.com/wap/shareview?surl=' . @$_REQUEST["k"] . '&page=1&third=0&fsid='.  @$_REQUEST["fsid"] . '&num=20&dir=' .  @$_REQUEST["dir"];
+                        $url = 'https://pan.baidu.com/wap/shareview?surl=' . @$_REQUEST["k"] . '&page=1&third=0&fsid='.  @$_REQUEST["fsid"] . '&num=20&dir=' .  urlencode(@$_REQUEST["dir"]);
                     } elseif (preg_match('/(https|http):\\/\\/pan.baidu.com\\//',substr(@$_REQUEST["url"],0,25))) {
                         $url = @$_REQUEST["url"];
                     } else {
@@ -66,35 +65,35 @@ switch (@$_REQUEST["l"]) {
                     } else {
                         $c = '';
                     }
-                    $content = trim(scurl($url,'get','',$c,'','Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',10,1,true,15));
-                    preg_match_all('/window.yunData = (.+?);/iu',$content,$kd);
-                    $json = json_decode($kd[1][0],true);
-                    if ($json["root_file_num"] > 1 || $json["file_list"][0]["isdir"] == "1") {
-                        /*
-						    这里给自己理清一下逻辑思路
-						    只有一页的文件(20/20)->全部列出
-						     - 文件夹->正常跳转到list
-						     - 文件->继续跳到getlink
-						    多页文件(匹配)->每次只列100
-						     - 文件夹->正常跳转到list
-						     - 文件->继续跳到getlink
-						     -- 下一页正常跳转到list
-						    */
-                        echo '<meta http-equiv="Refresh" content="1;url=./?m=list&case=web&step=' . $step . '&cookie=' . @$_REQUEST["cookie"] . '&url=' . $url . '">' . $translate["is_dir_location"];
-                        echo '</div></div></div>';
+                    $content = trim(scurl($url,'get','',$c,'','Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',20,true,true,15));
+                    if ($content == '') {
+                        echo '<br>' . $translate["error_link_baidu"] . '</div></div>';
                     } else {
-                        $zh = json_decode(trim(scurl("http://pan.baidu.com/share/download?bdstoken=null&web=5&app_id=250528&logid={$logid}&channel=chunlei&clienttype=5&uk={$json["uk"]}&shareid={$json["shareid"]}&fid_list=%5B{$json["file_list"][0]["fs_id"]}%5D&sign={$json["downloadsign"]}&timestamp={$json["timestamp"]}",'get','',$c,'','Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',10,0)),true);
-
-                        if (!isset($zh["dlink"])) {
-                            echo '<img src="'.$zh["img"].'" width="300" height="90" /><form action="./" method="get"><input type="hidden" name="m" value="getlink"/><input type="hidden" name="l" value="web"/><input type="hidden" name="step" value="'.($step+1).'"/><input type="hidden" name="uk" value="'.$json["uk"].'"/><input type="hidden" name="shareid" value="'.$json["shareid"].'"/><input type="hidden" name="fid_list" value="%5B'.$json["file_list"][0]["fs_id"].'%5D"/><input type="hidden" name="downloadsign" value="'.$json["downloadsign"].'"/><input type="hidden" name="timestamp" value="'.$json["timestamp"].'"/><input type="hidden" name="vcode" value="'.$zh["vcode"].'"/><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'.$translate["vcode"].'" name="input" id="input""><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div>';
-                            if (@$_REQUEST["step"] == 4) {
-                                echo '<input type="hidden"  name="k" value="'. @$_REQUEST["k"].'"><input type="hidden" name="cookie" value="'.$_REQUEST["cookie"].'"/>';
+                        preg_match_all('/window.yunData = (.+?);/iu',$content,$kd);
+                        $json = json_decode($kd[1][0],true);
+                        if ($json["root_file_num"] > 1 || $json["file_list"][0]["isdir"] == "1") {
+                            if ($step == 2) {
+                                //preg_match('/BDCLND=(.+?); expires/iU',$content,$cookie);
+                                $cookie = '';
+                            } else {
+                                $cookie = @$_REQUEST["cookie"];
                             }
-                            echo '</form></div></div></div>';
+                            echo '<meta http-equiv="Refresh" content="1;url=./?m=list&case=web&step=' . $step . '&cookie=' . $cookie . '&url=' . $url . '">' . $translate["is_dir_location"];
+                            echo '</div></div></div>';
                         } else {
-                            echo '<div class="col-md-10 offset-md-1"><a href="'.$zh["dlink"].'" target="_blank"><div class="card"><div class="card-body">'.$zh["dlink"].'</div></div></a></div>';
+                            $zh = json_decode(trim(scurl("http://pan.baidu.com/share/download?bdstoken=null&web=5&app_id=250528&logid={$logid}&channel=chunlei&clienttype=5&uk={$json["uk"]}&shareid={$json["shareid"]}&fid_list=%5B{$json["file_list"][0]["fs_id"]}%5D&sign={$json["downloadsign"]}&timestamp={$json["timestamp"]}",'get','',$c,'','Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',10,0)),true);
+                            if (!isset($zh["dlink"])) {
+                                echo '<img src="'.$zh["img"].'" width="300" height="90" /><form action="./" method="get"><input type="hidden" name="m" value="getlink"/><input type="hidden" name="l" value="web"/><input type="hidden" name="step" value="'.($step+1).'"/><input type="hidden" name="uk" value="'.$json["uk"].'"/><input type="hidden" name="shareid" value="'.$json["shareid"].'"/><input type="hidden" name="fid_list" value="%5B'.$json["file_list"][0]["fs_id"].'%5D"/><input type="hidden" name="downloadsign" value="'.$json["downloadsign"].'"/><input type="hidden" name="timestamp" value="'.$json["timestamp"].'"/><input type="hidden" name="vcode" value="'.$zh["vcode"].'"/><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'.$translate["vcode"].'" name="input" id="input""><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div>';
+                                if (@$_REQUEST["step"] == 4) {
+                                    echo '<input type="hidden"  name="k" value="'. @$_REQUEST["k"].'"><input type="hidden" name="cookie" value="'.$_REQUEST["cookie"].'"/>';
+                                }
+                                echo '</form></div></div></div>';
+                            } else {
+                                echo '<div class="col-md-10 offset-md-1"><a href="'.$zh["dlink"].'" target="_blank"><div class="card"><div class="card-body">'.$zh["dlink"].'</div></div></a></div>';
+                            }
                         }
                     }
+
                 } else {
                     //die("皮这一下你很开心吗(ㆀ˘･з･˘)");
                     if (preg_match('/(https|http):\\/\\/pan.baidu.com\\//',substr(@$_REQUEST["url"],0,25))) {
@@ -106,7 +105,7 @@ switch (@$_REQUEST["l"]) {
                     $content = trim(scurl($url,'get','','','','Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',20,1,true,15,true));
                     if ($content != "") {
                         preg_match_all("/Location:(.+?)\n/u",$content,$actbc);
-                        $actbc = substr($actbc[1][0],37);
+                        $actbc = get_surl($actbc[1][0]);
                         /*get captcha*/
                         $coo = json_decode(trim(scurl('https://pan.baidu.com/api/getcaptcha?prod=shareverify&bdstoken=null&web=5&app_id=250528&logid='.$logid.'&channel=chunlei&clienttype=5','get','','','http://pan.baidu.com/wap/init?surl='.trim($actbc[2]),'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba','',0)),true);
                         if ($coo == '' || json_decode($coo,true)["errno"] != 0) {

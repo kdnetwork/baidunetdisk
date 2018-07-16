@@ -69,7 +69,7 @@ function cloud_dl_status($x,$s){
 }
 function cloud_dl_source($a){
 	if(substr($a,-8)=='.torrent' && substr($a,0,1)=='/'){
-		return './?m=getlink&path='.urlencode($a);
+		return './?m=getlink&l=pcs&path='.urlencode($a);
 	}
 	else{
 		return $a;

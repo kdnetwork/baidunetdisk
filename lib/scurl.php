@@ -1,5 +1,5 @@
 <?php
-function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header,$followlocation=false,$connecttimeout=false,$nobody=false){
+function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header=false,$followlocation=false,$connecttimeout=false,$nobody=false){
 	$ch=curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	switch($user_agent){
@@ -38,7 +38,7 @@ function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header,$f
 	if($timeout!=""){
 		curl_setopt($ch,CURLOPT_TIMEOUT,$timeout);
 	}
-	if($header!=""){
+	if($header!=false){
 		curl_setopt($ch,CURLOPT_HEADER,true);
 	}
 	if($followlocation=true){
@@ -50,6 +50,9 @@ function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header,$f
 	if($nobody==true){
 		curl_setopt($ch,CURLOPT_NOBODY,1);
 	}
+	//if($httpheader!=false){
+	//	curl_setopt($ch,CURLOPT_HTTPHEADER,$httpheader);
+	//}
 	$content=curl_exec($ch);
 	curl_close($ch);
 	return $content;
