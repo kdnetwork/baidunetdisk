@@ -1,7 +1,11 @@
 {
     "" : "",
     "about" : "关于",
+    "login" : "登录",
     "button_for_login" : "点击登录",
+    "qr_button_for_login" : "扫码后点击登录",
+    "r_bduss" : "bduss获取成功，正在跳转...",
+    "w_bduss" : "bduss获取失败，正在回到登录页...",
     "your_bduss" : "您的BDUSS",
     "remenber_me" : "记住我",
     "tips" : "提示",

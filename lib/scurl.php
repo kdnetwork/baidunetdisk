@@ -1,5 +1,5 @@
 <?php
-function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header=false,$followlocation=false,$connecttimeout=false,$nobody=false,$curlfile=null){
+function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header=false,$followlocation=false,$connecttimeout=false,$nobody=false,$curlfile=null,$httpheader=false){
 	$ch=curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	switch($user_agent){
@@ -42,20 +42,20 @@ function scurl($url,$type,$data,$cookie,$referer,$user_agent,$timeout,$header=fa
 		curl_setopt($ch,CURLOPT_HEADER,true);
 	}
 	if($followlocation=true){
-		curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
+		curl_setopt($ch,CURLOPT_FOLLOWLOCATION,true);
 	}
 	if($connecttimeout!=false){
 		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$connecttimeout);
 	}
 	if($nobody==true){
-		curl_setopt($ch,CURLOPT_NOBODY,1);
+		curl_setopt($ch,CURLOPT_NOBODY,true);
 	}
 	if($curlfile != null){
 	    curl_setopt($ch,CURLOPT_FILE,$curlfile);
 	}
-	//if($httpheader!=false){
-	//	curl_setopt($ch,CURLOPT_HTTPHEADER,$httpheader);
-	//}
+	if($httpheader!=false){
+		curl_setopt($ch,CURLOPT_HTTPHEADER,$httpheader);
+	}
 	$content=curl_exec($ch);
 	curl_close($ch);
 	return $content;
