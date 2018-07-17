@@ -110,3 +110,13 @@ function get_surl($url,$surl=''){
         return trim(preg_replace('/(http|https):\/\/pan.baidu.com\/(s\/|wap\/(link|init)\?surl=)/','',$url));
     }
 }
+/*multi del*/
+function multi_del($files){
+    foreach($files as $key){
+        if(!unlink($key)){
+            //echo "删除失败\n";
+        }//else{
+            //echo "删除成功\n";
+        //}
+    }
+}
