@@ -85,7 +85,7 @@ switch (@$_REQUEST["l"]) {
                             if (!isset($zh["dlink"])) {
                                 echo '<img src="'.$zh["img"].'" width="300" height="90" /><form action="./" method="get"><input type="hidden" name="m" value="getlink"/><input type="hidden" name="l" value="web"/><input type="hidden" name="step" value="'.($step+1).'"/><input type="hidden" name="uk" value="'.$json["uk"].'"/><input type="hidden" name="shareid" value="'.$json["shareid"].'"/><input type="hidden" name="fid_list" value="%5B'.$json["file_list"][0]["fs_id"].'%5D"/><input type="hidden" name="downloadsign" value="'.$json["downloadsign"].'"/><input type="hidden" name="timestamp" value="'.$json["timestamp"].'"/><input type="hidden" name="vcode" value="'.$zh["vcode"].'"/><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'.$translate["vcode"].'" name="input" id="input""><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div>';
                                 if (@$_REQUEST["step"] == 4) {
-                                    echo '<input type="hidden"  name="k" value="'. @$_REQUEST["k"].'"><input type="hidden" name="cookie" value="'.$_REQUEST["cookie"].'"/>';
+                                    echo '<input type="hidden"  name="k" value="'. @$_REQUEST["k"].'"><input type="hidden" name="cookie" value="'.@$_REQUEST["cookie"].'"/>';
                                 }
                                 echo '</form></div></div></div>';
                             } else {
@@ -145,7 +145,7 @@ switch (@$_REQUEST["l"]) {
                     //die("皮这一下你很开心吗(ㆀ˘･з･˘)");
                     $kdjsssb = array("pwd" => @$_REQUEST["spwd"],"vcode" => $input,"vcode_str" => $vcode);
                     $nurl = 'https://pan.baidu.com/share/verify?surl='.$_REQUEST["k"].'&t='.time().'000&channel=chunlei&web=1&app_id=250528&bdstoken=null&logid='.$logid.'&clienttype=0';
-                    $coo = trim(scurl($nurl,'post',$kdjsssb,'','https://pan.baidu.com/wap/init?surl='.@$_REQUEST["k"],'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',15,1,true,10));
+                    @$coo = trim(scurl($nurl,'post',$kdjsssb,'','https://pan.baidu.com/wap/init?surl='.@$_REQUEST["k"],'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',15,1,true,10));
                     if ($coo != "") {
                         if (preg_match('/BDCLND=(.+?); expires/iU',$coo,$cookie)) {
                             echo '<meta http-equiv="Refresh" content="5;url=./?m=getlink&l=web&step=4&url=https://pan.baidu.com/s/1'.@$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.urlencode(base64_encode('BDCLND='.$cookie[1].';')).'"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["real_pw"].'</p></div></div></div>';

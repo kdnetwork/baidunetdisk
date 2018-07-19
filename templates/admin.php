@@ -23,7 +23,7 @@ if (is_login(@$_COOKIE["bduss"],@$_REQUEST["bduss"]) && is_admin(@$_COOKIE["bdus
             /*check update*/
             $cu = json_decode(file_get_contents('https://kdnetwork.github.io/api/wcnd/version.json'),true);
             if ($cu["check_ver"] > CHECK_VER) {
-                echo '<div class="col-md-10 offset-md-1"><div class="card text-white bg-warning"><div class="card-header">'.$translate["update"].'</div><div class="card-body">' . $cu["system_ver"] . '<br>' . $cu["check_data"] . '<br><a href="./?m=admin&task=update" class="btn btn-primary">'.$translate["update"].'</a></div></div></div>';
+                echo '<div class="col-md-10 offset-md-1"><div class="card border-warning"><div class="card-header">'.$translate["update"].'</div><div class="card-body">' . $cu["system_ver"] . '<br>' . $cu["check_data"] . '<br><a href="./?m=admin&task=update" class="btn btn-primary">'.$translate["update"].'</a></div></div></div>';
             } else {
                 echo '<div class="col-md-10 offset-md-1"><div class="card border-info"><div class="card-header">'.$translate["update"].'</div><div class="card-body">'.$translate["no_update"].'</div></div></div>';
             }

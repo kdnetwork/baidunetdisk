@@ -40,9 +40,9 @@ function head($bduss){
 	return scurl('http://top.baidu.com/user/pass','get','','BDUSS='.$bduss,'www.baidu.com',1,'','');
 }
 /*get quota*/
-function quota($appid,$bduss){
-	$a=json_decode(scurl('https://pcs.baidu.com/rest/2.0/pcs/quota?method=info&app_id='.$appid,'','','BDUSS='.$bduss,'pcs.baidu.com',1,'',false),true);
-	return '<div class="progress"><div class="progress-bar" role="progressbar" style="width: '.ceil(($a["used"]/$a["quota"])*100).'%" aria-valuemin="0" aria-valuemax="100">'.ceil($a["used"]/1073741824).' GB / '.ceil($a["quota"]/1073741824).' GB</div></div>';
+function quota($bduss){
+	$a=json_decode(scurl('https://pan.baidu.com/api/quota?checkexpire=1&checkfree=1&channel=chunlei&web=1&app_id=250528&bdstoken=&logid=&clienttype=0','','','BDUSS='.$bduss,'pan.baidu.com',1,'',false),true);
+	return '<div class="progress"><div class="progress-bar" role="progressbar" style="width: '.ceil(($a["used"]/$a["total"])*100).'%" aria-valuemin="0" aria-valuemax="100">'.ceil($a["used"]/1073741824).' GB / '.ceil($a["total"]/1073741824).' GB</div></div>';
 }
 /*QR code*/
 function qrcode($url,$type){

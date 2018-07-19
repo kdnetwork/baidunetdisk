@@ -12,7 +12,7 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
     } else {
         $page = $_REQUEST['page'];
     }
-    $re = json_decode(scurl('http://pcs.baidu.com/rest/2.0/pcs/file?path=/'.$path.'&method=list&app_id='.$appid.'&by='.$by.'&order='.$order.'&limit='.($page-1).'0-'.$page.'1','get','','BDUSS='.$_COOKIE['bduss'],'pcs.baidu.com',1,'',''),true);
+    $re = json_decode(scurl('https://pan.baidu.com/api/list?order=time&desc=1&showempty=0&web=1&page='.$page.'&num=11&dir='.$path.'&channel=chunlei&web=1&app_id=250528&bdstoken=&logid=&clienttype=0','get','','BDUSS='.$_COOKIE['bduss'],'pan.baidu.com',1,'',''),true);
     if ($re["error_code"] == 31045) {
         echo '<meta http-equiv="Refresh" content="5;url=./?m=list&path=%2F&page=1"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["noresult"].'</p></div></div></div>';
     } else {
@@ -28,12 +28,12 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
         }
         echo '</div></div><nav aria-label="page"><ul class="pagination justify-content-center">';
         if ($page != 1) {
-            echo '<li class="page-item"><a class="page-link" href="./?m=list&by='.$by.'&order='.$order.'&path='.$path.'&page='.($page-1).'"><span aria-hidden="true">&laquo;</span></a></li>';
+            echo '<li class="page-item"><a class="page-link" href="./?m=list&path='.$path.'&page='.($page-1).'"><span aria-hidden="true">&laquo;</span></a></li>';
         } else {
             echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>';
         }
         if (count($re["list"]) == 11) {
-            echo '<li class="page-item"><a class="page-link" href="./?m=list&by='.$by.'&order='.$order.'&path='.$path.'&page='.($page+1).'"><span aria-hidden="true">&raquo;</span></a></li>';
+            echo '<li class="page-item"><a class="page-link" href="./?m=list&path='.$path.'&page='.($page+1).'"><span aria-hidden="true">&raquo;</span></a></li>';
         } else {
             echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>';
         }
@@ -41,7 +41,7 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
     }
 } elseif (@$_REQUEST["case"] == "web" || @$_REQUEST["url"] != '') {
     if (@$_REQUEST["cookie"] != '') {
-        $cookie = $_REQUEST["cookie"];
+        $cookie = base64_decode($_REQUEST["cookie"]);
     } else {
         $cookie = '';
     }
@@ -98,20 +98,20 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
         for ($x = 0;$x < count($web_list["list"]);
             $x++) {
             if ($web_list["list"][$x]["isdir"] == true) {
-                echo '<a href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$_REQUEST["k"].'&k='.$_REQUEST["k"].'&page=1&cookie='.@$_REQUEST["cookie"].'&dir=' . $web_list["list"][$x]["path"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"]
+                echo '<a href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&page=1&cookie='.@$_REQUEST["cookie"].'&dir=' . $web_list["list"][$x]["path"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"]
                 . '" class="list-group-item list-group-item-primary">'.$web_list["list"][$x]["server_filename"].'</a>';
             } else {
-                echo '<a href="./?m=getlink&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&fsid=' . $web_list["list"][$x]["fs_id"] . '" class="list-group-item list-group-item-light">'.$web_list["list"][$x]["server_filename"].'</a>';
+                echo '<a href="./?m=getlink&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&fsid=' . $web_list["list"][$x]["fs_id"] . '" class="list-group-item list-group-item-light">'.$web_list["list"][$x]["server_filename"].'</a>';
             }
         }
         echo '</div></div><nav aria-label="page"><ul class="pagination justify-content-center">';
         if ($page != 1) {
-            echo '<li class="page-item"><a class="page-link" href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"] . '&page='.($page-1).'"><span aria-hidden="true">&laquo;</span></a></li>';
+            echo '<li class="page-item"><a class="page-link" href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"] . '&page='.($page-1).'"><span aria-hidden="true">&laquo;</span></a></li>';
         } else {
             echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>';
         }
         if (count($web_list["list"]) == 21) {
-            echo '<li class="page-item"><a class="page-link" href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"] . '&page='.($page+1).'"><span aria-hidden="true">&raquo;</span></a></li>';
+            echo '<li class="page-item"><a class="page-link" href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"] . '&page='.($page+1).'"><span aria-hidden="true">&raquo;</span></a></li>';
         } else {
             echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>';
         }
