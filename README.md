@@ -1,6 +1,6 @@
 # 百度网盘直链工具
 
-![KDWNIL(https://pan.nullmix.ml/)](https://pan.nullmix.ml/kdcloud200.png)
+![KDWNIL(https://pan.ailand.date/)](https://pan.ailand.date/kdcloud200.png)
 
 
 现已支持
@@ -33,6 +33,7 @@ config.php的注释已经写得很详细了
 
 ### API
 ![咕咕咕](https://kdnetwork.github.io/api/images/wcnd1.jpg)
+在做了
 
 ### 开发者列表 
 #### 主要 

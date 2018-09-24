@@ -21,9 +21,9 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
             $x < count($re["list"])-1;
             $x++) {
             if ($re["list"][$x]["isdir"] == true) {
-                echo '<a href="./?m=list&path='.urlencode($re["list"][$x]["path"]).'&page=1" class="list-group-item list-group-item-primary">'.$re["list"][$x]["server_filename"].'</a>';
+                echo '<a href="./?m=list&path='.urlencode($re["list"][$x]["path"]).'&page=1" class="list-group-item border-success">'.$re["list"][$x]["server_filename"].'</a>';
             } else {
-                echo '<a href="./?m=getlink&l=pcs&path='.urlencode($re["list"][$x]["path"]).'" class="list-group-item list-group-item-light">'.$re["list"][$x]["server_filename"].'</a>';
+                echo '<a href="./?m=getlink&l=pcs&path='.urlencode($re["list"][$x]["path"]).'" class="list-group-item border-primary">'.$re["list"][$x]["server_filename"].'</a>';
             }
         }
         echo '</div></div><nav aria-label="page"><ul class="pagination justify-content-center">';
@@ -65,9 +65,9 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
             for ($x = 0;$x < count($json["file_list"]);
                 $x++) {
                 if ($json["file_list"][$x]["isdir"] == true) {
-                    echo '<a href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$k1.'&k='.$k1.'&page=1&cookie='.@$_REQUEST["cookie"].'&dir=' . urlencode($json["file_list"][$x]["path"]) . '&uk=' . $json["uk"] . '&shareid=' . $json["shareid"] . '" class="list-group-item list-group-item-primary">'.$json["file_list"][$x]["server_filename"].'</a>';
+                    echo '<a href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$k1.'&k='.$k1.'&page=1&cookie='.@$_REQUEST["cookie"].'&dir=' . urlencode($json["file_list"][$x]["path"]) . '&uk=' . $json["uk"] . '&shareid=' . $json["shareid"] . '" class="list-group-item border-success">'.$json["file_list"][$x]["server_filename"].'</a>';
                 } else {
-                    echo '<a href="./?m=getlink&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$k1.'&k='.$k1.'&cookie='.@$_REQUEST["cookie"].'&dir=' . urlencode($json["rootSharePath"]) . '&fsid=' . $json["file_list"][$x]["fs_id"] . '" class="list-group-item list-group-item-light">'.$json["file_list"][$x]["server_filename"].'</a>';
+                    echo '<a href="./?m=getlink&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.$k1.'&k='.$k1.'&cookie='.@$_REQUEST["cookie"].'&dir=' . urlencode($json["rootSharePath"]) . '&fsid=' . $json["file_list"][$x]["fs_id"] . '" class="list-group-item border-primary">'.$json["file_list"][$x]["server_filename"].'</a>';
                 }
             }
             echo '</div></div>';
@@ -99,9 +99,9 @@ if (is_login(@$_COOKIE["bduss"],'') && @$_REQUEST["case"] != "web") {
             $x++) {
             if ($web_list["list"][$x]["isdir"] == true) {
                 echo '<a href="./?m=list&case=web&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&page=1&cookie='.@$_REQUEST["cookie"].'&dir=' . $web_list["list"][$x]["path"] . '&uk=' . @$_REQUEST["uk"] . '&shareid=' . @$_REQUEST["shareid"]
-                . '" class="list-group-item list-group-item-primary">'.$web_list["list"][$x]["server_filename"].'</a>';
+                . '" class="list-group-item border-success">'.$web_list["list"][$x]["server_filename"].'</a>';
             } else {
-                echo '<a href="./?m=getlink&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&fsid=' . $web_list["list"][$x]["fs_id"] . '" class="list-group-item list-group-item-light">'.$web_list["list"][$x]["server_filename"].'</a>';
+                echo '<a href="./?m=getlink&l=web&step=' . $step . '&url=https://pan.baidu.com/s/'.@$_REQUEST["k"].'&k='.@$_REQUEST["k"].'&cookie='.@$_REQUEST["cookie"].'&dir=' . @$_REQUEST["dir"] . '&fsid=' . $web_list["list"][$x]["fs_id"] . '" class="list-group-item border-primary">'.$web_list["list"][$x]["server_filename"].'</a>';
             }
         }
         echo '</div></div><nav aria-label="page"><ul class="pagination justify-content-center">';

@@ -85,7 +85,7 @@ echo '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="
 if($mode=='login' && $secret!==''){
 	echo '<script src="https://www.recaptcha.net/recaptcha/api.js"></script>';
 }
-if($ga != ''){
+if($ga != '' && $mode != 'login'){
     echo '<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=' . $ga . '"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'' . $ga . '\');</script>';
 }
 echo '</body>';

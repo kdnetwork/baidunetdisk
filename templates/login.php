@@ -12,8 +12,10 @@ if (isset($_REQUEST["sign"])) {
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
         $a = curl_exec($ch);
         curl_close($ch);
-        if (preg_match('/BDUSS=(.+?); expires/iU',$a,$b)) {
-            echo '<meta http-equiv="Refresh" content="5;url=./?m=login&bduss=' . $b[1] . '&rm=' . @$_REQUEST["rm"] . '"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["r_bduss"].'</p></div></div></div>';
+        if (preg_match('/BDUSS=(.+);/iU',$a,$b)) {// && preg_match('/STOKEN=(.+);/iU',$a,$c) && preg_match('/PTOKEN=(.+);/iU',$a,$d)
+            //echo 'BDUSS=' . $b[1] .';STOKEN=' . $c[1] . ';PTOKEN=' . $d[1] . '   ';
+            //die(scurl('https://passport.baidu.com/v3/login/api/auth/?return_type=5&tpl=netdisk&u=https://pan.baidu.com/disk/home','get','','BDUSS=' . $b[1] .';STOKEN=' . $c[1] . ';PTOKEN=' . $d[1] .';HOSUPPORT=1','https://pan.baidu.com/','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:62.0) Gecko/20100101 Firefox/62.0',10,true,true,false,false,null));
+            echo '<meta http-equiv="Refresh" content="1;url=./?m=login&bduss=' . $b[1] . '&rm=' . @$_REQUEST["rm"] . '"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["r_bduss"].'</p></div></div></div>';
         } else {
             echo '<meta http-equiv="Refresh" content="5;url=./?m=login"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["w_bduss"].'</p></div></div></div>';
         }
@@ -29,7 +31,7 @@ if (isset($_REQUEST["sign"])) {
     }
     echo '</div><button class="btn btn-primary" type="submit">'. $translate["button_for_login"].'</button></span></div></form></div></div></div></div><div class="col-md-10 offset-md-1"><div class="card border-primary mb-3"><div class="card-header"><h5 class="card-title">'. $translate["tips"].'</h5></div><div class="card-body">'. $translate["how_to_get_bduss"].':<br>简云<a href="https://bduss.tbsign.cn/">https://bduss.tbsign.cn</a><br>imyfan贴吧云签<a href="https://tool.imyfan.com">https://tool.imyfan.com</a><br><br></div></div></div>';
 
-} elseif (isset($_COOKIE["bduss"])) {
+} elseif (is_login(@$_COOKIE["bduss"],'')) {
     echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["been_login"].'</p></div></div></div>';
 } else {
     if ($secret != '') {
@@ -44,18 +46,19 @@ if (isset($_REQUEST["sign"])) {
         if (@$_GET["rm"] == true) {
             setcookie('bduss',@$_REQUEST["bduss"],time()+315705600,'/',$_SERVER['HTTP_HOST']);
             //setcookie('ptoken',@$_REQUEST['ptoken'],time()+315705600,'/',$seo_info["site_url"]);
-            //setcookie('stoken',@$_REQUEST['stoken'],time()+315705600,'/',$seo_info["site_url"]);
+            //setcookie('stoken',@$_REQUEST['stoken'],time()+315705600,'/',$_SERVER['HTTP_HOST']);
             //setcookie('baiduid',json_decode(head(@$_REQUEST['bduss']),1)["un"],time()+315705600,'/',$seo_info["site_url"]);
             echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["been_login"].'</p></div></div></div>';
         } else {
             setcookie('bduss',@$_REQUEST["bduss"],time()+300,'/',$_SERVER['HTTP_HOST']);
             //setcookie('ptoken',@$_REQUEST['ptoken'],time()+300,'/',$seo_info["site_url"]);
-            //setcookie('stoken',@$_REQUEST['stoken'],time()+300,'/',$seo_info["site_url"]);
+            //setcookie('stoken',@$_REQUEST['stoken'],time()+300,'/',$_SERVER['HTTP_HOST']);
             //setcookie('baiduid',json_decode(head(@$_rREQUEST['bduss']),1)["un"],time()+300,'/',$seo_info["site_url"]);
             echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["been_login_urm"].'</p></div></div></div>';
         }
     } else {
         setcookie('bduss','',time()-9999,'/',$_SERVER['HTTP_HOST']);
+        //setcookie('stoken','',time()-9999,'/',$_SERVER['HTTP_HOST']);
         echo '<meta http-equiv="Refresh" content="5;url=//'.$seo_info["site_url"].'/?m=login"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["bduss_error"].'</p></div></div></div>';
     }
 }

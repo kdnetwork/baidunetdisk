@@ -9,10 +9,10 @@ if(is_login(@$_COOKIE["bduss"],'')){
 			echo '<div class="col-md-10 offset-md-1"><div class="card bg-info mb-3 text-white text-center"><div class="card-body"><p class="card-text">'.count($back["list"]).'</p></div></div></div><div class="col-md-10 offset-md-1"><div class="list-group">';
 			foreach($back["list"] as $key){
 				if($key["isdir"]==true){
-					echo '<a href="./?m=list&path='.urlencode($key["path"]).'&page=1" class="list-group-item list-group-item-primary">'.$key["server_filename"].'</a>';
+					echo '<a href="./?m=list&path='.urlencode($key["path"]).'&page=1" class="list-group-item border-success">'.$key["server_filename"].'</a>';
 				}
 				else{
-					echo '<a href="./?m=getlink&l=pcs&path='.urlencode($key["path"]).'" class="list-group-item list-group-item-light">'.$key["server_filename"].'</a>';
+					echo '<a href="./?m=getlink&l=pcs&path='.urlencode($key["path"]).'" class="list-group-item border-primary">'.$key["server_filename"].'</a>';
 				}
 			}
 			echo '</div></div>';

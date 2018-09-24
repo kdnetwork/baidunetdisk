@@ -73,7 +73,7 @@ switch (@$_REQUEST["l"]) {
                         $json = json_decode($kd[1][0],true);
                         if ($json["root_file_num"] > 1 || $json["file_list"][0]["isdir"] == "1") {
                             if ($step == 2) {
-                                //preg_match('/BDCLND=(.+?); expires/iU',$content,$cookie);
+                                //preg_match('/BDCLND=(.+);/U',$content,$cookie);
                                 $cookie = '';
                             } else {
                                 $cookie = @$_REQUEST["cookie"];
@@ -147,10 +147,10 @@ switch (@$_REQUEST["l"]) {
                     $nurl = 'https://pan.baidu.com/share/verify?surl='.$_REQUEST["k"].'&t='.time().'000&channel=chunlei&web=1&app_id=250528&bdstoken=null&logid='.$logid.'&clienttype=0';
                     @$coo = trim(scurl($nurl,'post',$kdjsssb,'','https://pan.baidu.com/wap/init?surl='.@$_REQUEST["k"],'Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba',15,1,true,10));
                     if ($coo != "") {
-                        if (preg_match('/BDCLND=(.+?); expires/iU',$coo,$cookie)) {
-                            echo '<meta http-equiv="Refresh" content="5;url=./?m=getlink&l=web&step=4&url=https://pan.baidu.com/s/1'.@$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.urlencode(base64_encode('BDCLND='.$cookie[1].';')).'"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["real_pw"].'</p></div></div></div>';
+                        if (preg_match('/BDCLND=(.+);/U',$coo,$cookie)) {
+                            echo '<meta http-equiv="Refresh" content="2;url=./?m=getlink&l=web&step=4&url=https://pan.baidu.com/s/1'.@$_REQUEST["k"].'&k='.$_REQUEST["k"].'&cookie='.urlencode(base64_encode('BDCLND='.$cookie[1].';')).'"><div class="col-md-10 offset-md-1"><div class="card text-white bg-success"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["real_pw"].'</p></div></div></div>';
                         } else {
-                            echo '<meta http-equiv="Refresh" content="5;url=./?m=getlink&l=web&step=1"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["wrong_pw"].'</p></div></div></div>';
+                            echo '<meta http-equiv="Refresh" content="2;url=./?m=getlink&l=web&step=1"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["wrong_pw"].'</p></div></div></div>';
                         }
                     } else {
                         echo '<div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["error_link_baidu"].'</p></div></div></div>';

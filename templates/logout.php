@@ -6,6 +6,7 @@ if(is_login(@$_COOKIE["bduss"],'')){
 	//$kkk = curl_exec($lo);
 	//curl_close($lo);
 	setcookie('bduss','',time()-9999,'/',$_SERVER['HTTP_HOST']);
+	//setcookie('stoken','',time()-9999,'/',$_SERVER['HTTP_HOST']);
 	//setcookie('baiduid','',time()-9999,'/',$_SERVER['HTTP_HOST']);
 	echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-info"><div class="card-header">'. $translate["tips"].'</div><div class="card-body"><p class="card-text">'. $translate["logouting"].'</p></div></div></div>';
 	

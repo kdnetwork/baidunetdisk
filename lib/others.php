@@ -1,6 +1,11 @@
 <?php
 /*check login status*/
 function is_login($cookie_bduss,$request_bduss){
+    //备份几个接口，哪天贴吧挂了可以用
+    //http://map.baidu.com/?qt=ssn
+    //https://baike.baidu.com/api/usercenter/login
+    //https://www.nuomi.com/pclogin/main/userinfo
+    //http://lvyou.baidu.com/user/ -> Location: /user/(uid) -> https://lvyou.baidu.com/user/ajax/getcommentnum?format=ajax&uid=(uid)
 	if($cookie_bduss=="" && $request_bduss==""){
 		return false;
 	}
@@ -37,7 +42,7 @@ function is_admin($bduss,$admin_list){
 }
 /*get your Baidu avatar by your BDUSS*/
 function head($bduss){
-	return scurl('http://top.baidu.com/user/pass','get','','BDUSS='.$bduss,'www.baidu.com',1,'','');
+	return scurl('https://top.baidu.com/user/pass','get','','BDUSS='.$bduss,'www.baidu.com',1,'','');
 }
 /*get quota*/
 function quota($bduss){
@@ -76,7 +81,7 @@ function cloud_dl_source($a){
 	}
 }
 /*for list*/
-function show_list_name($path){
+function show_list_name($path,$m='list'){
 	if($path!='/'){
 		$listname=strtok($path,"/");
 		$a=array();
@@ -84,11 +89,11 @@ function show_list_name($path){
 			$a[]=$listname;
 			$listname=strtok("/");
 		}
-		$aaa='<li class="breadcrumb-item"><a href="./?m=list&page=1&path=%2F">'.$GLOBALS["translate"]["root"].'</a></li>';
+		$aaa='<li class="breadcrumb-item"><a href="./?m=' . $m . '&page=1&path=%2F">'.$GLOBALS["translate"]["root"].'</a></li>';
 		for($x=0;
 		$x<count($a)-1;
 		$x++){
-			$aaa.='<li class="breadcrumb-item"><a href="./?m=list&page=1&path=';
+			$aaa.='<li class="breadcrumb-item"><a href="./?m=' . $m . '&page=1&path=';
 			for($y=0;
 			$y<=$x;
 			$y++){
@@ -119,4 +124,8 @@ function multi_del($files){
             //echo "删除成功\n";
         //}
     }
+}
+/*for transfer*/
+function transfer($uk,$shareid,$path,$bduss){//注意：$path 是一个数组
+    return scurl("https://pan.baidu.com/share/transfer?from={$uk}&shareid={$shareid}&bdstoken=&web=5&app_id=250528&logid=&channel=chunlei&clienttype=5",'post',array("path" => "/我的资源/","filelist" => json_encode($path), "async" => 1,"r"=>0.1,"type"=>1),'BDUSS='.$bduss,'pan.baidu.com',1,10);
 }
