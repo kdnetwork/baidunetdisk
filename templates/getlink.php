@@ -1,30 +1,36 @@
 <?php
 switch (@$_REQUEST["l"]) {
     case 'pcs':
-        if (is_login(@$_COOKIE["bduss"],'')) {
-            $bduss = @$_COOKIE["bduss"];
-            $path = urldecode(@$_REQUEST['path']);
-            if (substr($path,0,1) == '/') {
-                $path = substr($path,1);
-            }
-            $re = json_decode(scurl('https://d.pcs.baidu.com/rest/2.0/pcs/file?method=locatedownload&app_id=250528&ver=2.0&dtype=0&esl=1&ehps=0&check_blue=1&clienttype=1&path=%2F'.$path.'&logid='.$logid,'get','','BDUSS='.$bduss,'','netdisk;7.8.1;Red;android-android;4.3','',''),true);
-            if ($re["error_code"] != 0) {
-                echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["illegal_user"].'</p></div></div></div>';
-            } else {
-                echo '<div class="col-md-10 offset-md-1"><form action="./?m=getlink" method="post"><input type="hidden" name="l" value="pcs"/><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'.$translate["path"].'" name="path" id="input" value="'. @$_REQUEST["path"].'"><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div></form><div class="card text-white bg-danger mb-3"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["tips_pcs"].'</p></div></div></div><div class="col-md-10 offset-md-1"><div class="list-group">';
-                $x = 1;
-                foreach ($re["urls"] as $key) {
-                    echo '<a href="'.$key["url"].'" class="list-group-item list-group-item-action flex-column align-items-start ';
-                    if ($x%2 == 0) {
-                        echo 'active';
-                    }
-                    echo '" target="_blank"><div class="d-flex w-100 justify-content-between"><p class="mb-1">'.$key["url"].'</p></div></a>';
-                    $x++;
-                }
-                echo '</div></div>';
-            }
+        if (preg_match('/https:\/\/pan.baidu.com\/(.*) 提取码: ([a-zA-Z0-9]{4})/Uix',str_replace(' ','',@$_REQUEST['path']),$path_location)) {
+            echo '<meta http-equiv="Refresh" content="0;url=./?m=getlink&step=2&url=' . $path_location[1] . '&spwd=' . $path_location[2] . '">';
+        } elseif (preg_match('/https:\/\/pan.baidu.com\/(.*)/',str_replace(' ','',@$_REQUEST['path']),$path_location)) {
+            echo '<meta http-equiv="Refresh" content="0;url=./?m=getlink&step=2&url=' . $path_location[1] . '">';
         } else {
-            echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["nologin"].'</p></div></div></div>';
+            if (is_login(@$_COOKIE["bduss"],'')) {
+                $bduss = @$_COOKIE["bduss"];
+                $path = urldecode(@$_REQUEST['path']);
+                if (substr($path,0,1) == '/') {
+                    $path = substr($path,1);
+                }
+                $re = json_decode(scurl('https://d.pcs.baidu.com/rest/2.0/pcs/file?method=locatedownload&app_id=250528&ver=2.0&dtype=0&esl=1&ehps=0&check_blue=1&clienttype=1&path=%2F'.$path.'&logid='.$logid,'get','','BDUSS='.$bduss,'','netdisk;7.8.1;Red;android-android;4.3','',''),true);
+                if ($re["error_code"] != 0) {
+                    echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["illegal_user"].'</p></div></div></div>';
+                } else {
+                    echo '<div class="col-md-10 offset-md-1"><form action="./?m=getlink" method="post"><input type="hidden" name="l" value="pcs"/><div class="input-group mb-3"><input type="text" class="form-control" placeholder="'.$translate["path"].'" name="path" id="input" value="'. @$_REQUEST["path"].'"><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div></form><div class="card text-white bg-danger mb-3"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["tips_pcs"].'</p></div></div></div><div class="col-md-10 offset-md-1"><div class="list-group">';
+                    $x = 1;
+                    foreach ($re["urls"] as $key) {
+                        echo '<a href="'.$key["url"].'" class="list-group-item list-group-item-action flex-column align-items-start ';
+                        if ($x%2 == 0) {
+                            echo 'active';
+                        }
+                        echo '" target="_blank"><div class="d-flex w-100 justify-content-between"><p class="mb-1">'.$key["url"].'</p></div></a>';
+                        $x++;
+                    }
+                    echo '</div></div>';
+                }
+            } else {
+                echo '<meta http-equiv="Refresh" content="5;url=./"><div class="col-md-10 offset-md-1"><div class="card text-white bg-danger"><div class="card-header">'.$translate["tips"].'</div><div class="card-body"><p class="card-text">'.$translate["nologin"].'</p></div></div></div>';
+            }
         }
         break;
     case 'es':
@@ -52,6 +58,9 @@ switch (@$_REQUEST["l"]) {
             case 4:
             case 2:
                 if (@$_REQUEST["spwd"] == "") {
+                    if (preg_match('/https:\/\/pan.baidu.com\/(.*)提取码:([a-zA-Z0-9]{4})/Uix',str_replace(' ','',@$_REQUEST['url']),$path_location)) {
+                        echo '<meta http-equiv="Refresh" content="0;url=./?m=getlink&step=2&url=' . $path_location[1] . '&spwd=' . $path_location[2] . '">';
+                    }
                     if (@$_REQUEST["dir"] != "") {
                         $url = 'https://pan.baidu.com/wap/shareview?surl=' . @$_REQUEST["k"] . '&page=1&third=0&fsid='.  @$_REQUEST["fsid"] . '&num=20&dir=' .  urlencode(@$_REQUEST["dir"]);
                     } elseif (preg_match('/(https|http):\\/\\/pan.baidu.com\\//',substr(@$_REQUEST["url"],0,25))) {
@@ -158,7 +167,7 @@ switch (@$_REQUEST["l"]) {
                 }
                 break;
             default:
-                echo '<div class="col-md-10 offset-md-1"><form action="./?m=getlink" method="post"><input type="hidden" name="step" value="2"/><div class="input-group mb-3"><input type="url" class="form-control" placeholder="https://pan.baidu.com/..." name="url" id="input"><input type="text" class="form-control" placeholder="'.$translate["url_pw"].'" name="spwd" id="input"><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div></form></div>';
+                echo '<div class="col-md-10 offset-md-1"><form action="./?m=getlink" method="post"><input type="hidden" name="step" value="2"/><div class="input-group mb-3"><input type="text" class="form-control" placeholder="https://pan.baidu.com/..." name="url" id="input"><input type="text" class="form-control" placeholder="'.$translate["url_pw"].'" name="spwd" id="input"><div class="input-group-append"><button class="btn btn-primary" type="submit">'.$translate["go"].'</button></div></div></form></div>';
                 break;
         }
         break;
